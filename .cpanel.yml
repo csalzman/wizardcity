@@ -1,0 +1,7 @@
+---
+deployment:
+  tasks:
+    - export BE_DEPLOYPATH=/home/chrisbcx/repositories/wizardcity/spellbook
+    - export FE_DEPLOYPATH=/home/chrisbcx/repositories/wizardcity/crystallball
+    - /bin/cp -R spellbook $BE_DEPLOYPATH
+    - /bin/cp -R crystallball $FE_DEPLOYPATH
