@@ -2,5 +2,6 @@
 deployment:
   tasks:
     - export BE_DEPLOYPATH=wizardcity.chrissalzman.com/spellbook FE_DEPLOYPATH=wizardcity.chrissalzman.com/crystalball
+    - /bin/cp index.html $BE_DEPLOYPATH
     - /bin/cp -R spellbook $BE_DEPLOYPATH
     - /bin/cp -R crystalball $FE_DEPLOYPATH
