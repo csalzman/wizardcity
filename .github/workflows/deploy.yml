@@ -20,16 +20,11 @@ jobs:
           port: ${{ secrets.DROPLET_PORT }} # usually 22 (optional)
           script: |
             set -e
-            cd /var/www/wizard_city                  # path to the repo on the droplet
+            cd /var/www/wizardcity                  # path to the repo on the droplet
             git fetch --all
             git reset --hard origin/main            # discard local changes, match remote
             git pull origin main
 
-            # Optional: install deps / build. Uncomment what you need.
-            # npm ci --omit=dev
-            # npm run build
-            # pip install -r requirements.txt
-
             # Restart the systemd service
-            sudo systemctl restart your-service.service
-            sudo systemctl status your-service.service --no-pager
+            # sudo systemctl restart your-service.service
+            # sudo systemctl status your-service.service --no-pager
