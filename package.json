@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "spellbook": "npm install --prefix spellbook && npm run start --prefix spellbook",
+    "crystalball": "npm start"
+  },
+  "dependencies": {
+    "sqlite3": "^6.0.1"
+  }
+}
