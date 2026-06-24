@@ -25,6 +25,5 @@ jobs:
             git reset --hard origin/main            # discard local changes, match remote
             git pull origin main
 
-            # Restart the systemd service
-            # sudo systemctl restart your-service.service
-            # sudo systemctl status your-service.service --no-pager
+            sudo npm install
+            pm2 start index.js
