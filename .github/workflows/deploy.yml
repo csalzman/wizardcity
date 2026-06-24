@@ -26,4 +26,5 @@ jobs:
             git pull origin main
 
             sudo npm install
-            pm2 restart spellbook
+            # since we're logged in as root switch to the nodejs user who is running this
+            runuser -u nodejs -- pm2 restart spellbook
