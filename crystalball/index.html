@@ -8,7 +8,7 @@
 
   <script>
     async function getData() {
-      const url = "/spellbook/map";
+      const url = "/spellbook/maps/xyz";
       try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -17,10 +17,18 @@
 
         const result = await response.json();
         console.log(result);
+        return result;
       } catch (error) {
         console.error(error.message);
       }
     }
-    getData();
+    const data = getData();
+
+    const mapElement = document.getElementById("map");
+    data.forEach((d) => {
+      const newDiv = document.createElement("div");
+      newDiv.appendChild(d.x);
+      mapElement.appendChild(newDiv);
+    });
   </script>
 </html>
