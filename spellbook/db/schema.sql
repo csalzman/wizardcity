@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS wizards (
     facts TEXT,
     created_at created_at INTEGER DEFAULT (unixepoch()),
     updated_at created_at INTEGER DEFAULT (unixepoch()),
-    deleted_at TEXT NOT NULL
+    deleted_at TEXT
 );
 
 CREATE TABLE IF NOT EXISTS maps (
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS maps (
     name TEXT NOT NULL UNIQUE,
     created_at created_at INTEGER DEFAULT (unixepoch()),
     updated_at created_at INTEGER DEFAULT (unixepoch()),
-    deleted_at TEXT NOT NULL
+    deleted_at TEXT
 );
 
 CREATE TABLE IF NOT EXISTS cells (
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS cells (
     nature TEXT,
     created_at created_at INTEGER DEFAULT (unixepoch()),
     updated_at created_at INTEGER DEFAULT (unixepoch()),
-    deleted_at TEXT NOT NULL
+    deleted_at TEXT
 );
 
 CREATE TABLE IF NOT EXISTS buildings (
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS buildings (
     type TEXT,
     created_at created_at INTEGER DEFAULT (unixepoch()),
     updated_at created_at INTEGER DEFAULT (unixepoch()),
-    deleted_at TEXT NOT NULL
+    deleted_at TEXT
 );
 
 CREATE TABLE IF NOT EXISTS npws (
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS npws (
     facts TEXT,
     created_at created_at INTEGER DEFAULT (unixepoch()),
     updated_at created_at INTEGER DEFAULT (unixepoch()),
-    deleted_at TEXT NOT NULL
+    deleted_at TEXT
 );
 
 CREATE TABLE IF NOT EXISTS items (
@@ -60,5 +60,5 @@ CREATE TABLE IF NOT EXISTS items (
     facts TEXT,
     created_at created_at INTEGER DEFAULT (unixepoch()),
     updated_at created_at INTEGER DEFAULT (unixepoch()),
-    deleted_at TEXT NOT NULL
+    deleted_at TEXT
 );
