@@ -20,11 +20,22 @@ jobs:
           port: ${{ secrets.DROPLET_PORT }} # usually 22 (optional)
           script: |
             set -e
-            cd /var/www/wizardcity                  # path to the repo on the droplet
+            cd /var/www/wizardcity                  
             git fetch --all
-            git reset --hard origin/main            # discard local changes, match remote
+
+            # discard local changes, match remote
+            git reset --hard origin/main            
+
+            # get latest changes
             git pull origin main
 
+            # Do NPM things
             sudo npm install
-            # since we're logged in as root switch to the nodejs user who is running this
+            cd spellbook
+            sudo npm install
+
+            # Make sure db is setup
+            sudo node ./db/databaseSetup.js
+
+            # PM2 runs on the nodejs user
             runuser -u nodejs -- pm2 restart spellbook

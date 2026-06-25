@@ -8,7 +8,7 @@
 
   <script>
     async function getData() {
-      const url = "/spellbook/maps/xyz";
+      const url = "http://localhost:3000/maps/xyz";
       try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -22,6 +22,7 @@
         console.error(error.message);
       }
     }
+
     const data = getData();
 
     const mapElement = document.getElementById("map");

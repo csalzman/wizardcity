@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../db/databasesetup.js");
+const db = require("../db/databaseSetup.js");
 
 // Get all maps
 router.get("/maps/", (req, res) => {
@@ -11,11 +11,12 @@ router.get("/maps/", (req, res) => {
 
 // Get map information
 router.get("/maps/:id", (req, res) => {
-  const stmt = db
-    .prepare("SELECT * FROM cells WHERE map = ?")
-    .all(req.params.id);
+  const stmt = "SELECT * FROM cells WHERE map = ?";
 
-  res.json(stmt);
+  const mapInfo = db.prepare(stmt).all(req.params.id);
+  console.log(mapInfo);
+
+  res.json(mapInfo);
 });
 
 // Create a new map

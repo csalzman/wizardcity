@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../db/databasesetup.js");
+const db = require("../db/databaseSetup.js");
 
 // Get all wizards
 router.get("/wizards", (req, res) => {
