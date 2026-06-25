@@ -10,6 +10,7 @@ router.get("/wizards", (req, res) => {
 });
 
 // Create a new wizard
+// TODO: this will need to require a password too
 router.post("/wizards", (req, res) => {
   const stmt = db.prepare(
     "INSERT INTO wizards (wizard_name, email, color) VALUES ('fooa', 'bara', 'baza')",

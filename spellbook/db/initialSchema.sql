@@ -22,14 +22,16 @@ CREATE TABLE IF NOT EXISTS cells (
     id INTEGER PRIMARY KEY,
     map INTEGER NOT NULL,
     x INTEGER NOT NULL,
-    y INTEGER NOT NULL UNIQUE,
+    y INTEGER NOT NULL,
     color TEXT,
     map_link TEXT,
     region TEXT,
     nature TEXT,
     created_at created_at INTEGER DEFAULT (unixepoch()),
     updated_at created_at INTEGER DEFAULT (unixepoch()),
-    deleted_at TEXT
+    deleted_at TEXT,
+    -- TODO: should this be replace instead?
+    UNIQUE(map, x, y) ON CONFLICT IGNORE
 );
 
 CREATE TABLE IF NOT EXISTS buildings (

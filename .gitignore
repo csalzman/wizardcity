@@ -2,3 +2,4 @@ node_modules/
 spellbook/db/database.db
 spellbook/db/database.db-shm
 .gitignore
+spellbook/db/database.db-wal
