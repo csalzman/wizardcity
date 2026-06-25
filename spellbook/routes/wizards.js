@@ -2,17 +2,15 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db/databasesetup.js");
 
+// Get all wizards
 router.get("/wizards", (req, res) => {
-  const stmt = db.prepare("SELECT * FROM wizards");
+  const stmt = db.prepare("SELECT * FROM wizards").all();
 
-  const returned = stmt.run();
-
-  res.json(returned);
+  res.json(stmt);
 });
 
+// Create a new wizard
 router.post("/wizards", (req, res) => {
-  const sql = "INSERT INTO wizards";
-
   const stmt = db.prepare(
     "INSERT INTO wizards (wizard_name, email, color) VALUES ('fooa', 'bara', 'baza')",
   );
@@ -22,14 +20,13 @@ router.post("/wizards", (req, res) => {
   res.json();
 });
 
+// Get a single wizard
 router.get("/wizards/:id", (req, res) => {
-  res.send({
-    wizard: [
-      {
-        name: req.params.id,
-      },
-    ],
-  });
+  const getWizard = db
+    .prepare("SELECT * FROM wizards WHERE wizard_name = ?")
+    .all(req.params.id);
+
+  res.json(getWizard);
 });
 
 module.exports = router;

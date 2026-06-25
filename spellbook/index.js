@@ -3,6 +3,7 @@ require("./db/databasesetup.js");
 
 const express = require("express");
 const app = express();
+app.use(express.json());
 
 const wizardsRoutes = require("./routes/wizards.js");
 const mapsRoutes = require("./routes/maps.js");
