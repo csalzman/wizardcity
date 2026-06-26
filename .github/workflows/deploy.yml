@@ -21,8 +21,10 @@ jobs:
           script: |
             set -e
             cd /var/www/wizardcity                  
+
+            # Get latest changes
             git fetch origin/main
-            git rebase origin/main
+            git pull origin main
 
             # Do NPM things
             npm install
