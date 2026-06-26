@@ -6,14 +6,19 @@ require("./db/databasesetup.js");
 
 const app = express();
 
-app.use(express.static("crystalball"));
+// Allow for serving static files without html at the end
+const staticOptions = {
+  extensions: ["html"],
+};
+
+app.use(express.static("crystalball", staticOptions));
 
 // Allow for json
 app.use(express.json());
 
 // Adds headers: Access-Control-Allow-Origin: *
 // TODO: probably only want this for local dev
-app.use(cors());
+// app.use(cors());
 
 // Routes
 const wizardsRoutes = require("./spellbook/wizards.js");

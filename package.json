@@ -1,7 +1,6 @@
 {
   "scripts": {
-    "spellbook": "npm install --prefix spellbook && nodemon npm run start --prefix spellbook",
-    "crystalball": "live-server ./crystalball"
+    "dev": "npm install && nodemon node index.js"
   },
   "dependencies": {
     "live-server": "^1.2.2",

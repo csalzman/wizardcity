@@ -2,13 +2,13 @@
   <body>
     <h1>WIZARD CITY</h1>
     <div id="map"></div>
-    <p><a href="/login">login</a></p>
+    <p><a href="/wizards">Wizards</a></p>
     <p><a href="https://github.com/csalzman/wizardcity">github</a></p>
   </body>
 
   <script>
     async function getData() {
-      const url = "http://localhost:3000/maps/xyz";
+      const url = "/spellbook/maps/xyz";
       try {
         const response = await fetch(url);
         if (!response.ok) {

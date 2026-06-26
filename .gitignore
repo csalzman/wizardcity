@@ -1,7 +1,4 @@
 node_modules/
-spellbook/db/database.db
-spellbook/db/database.db-shm
-spellbook/db/database.db-wal
 .DS_Store
 db/database.db
 db/database.db-shm
