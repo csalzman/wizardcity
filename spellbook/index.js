@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 
 // Make sure db is setup
-require("./db/databaseSetup.js");
+require("./db/databasesetup.js");
 
 const app = express();
 

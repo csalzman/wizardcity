@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../db/databaseSetup.js");
+const db = require("../db/databasesetup.js");
 
 // Create cells. Should only be used to generate map initially
 router.post("/cells", (req, res) => {
