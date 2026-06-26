@@ -30,12 +30,12 @@ jobs:
             git pull origin main
 
             # Do NPM things
-            sudo npm install
+            npm install
             cd spellbook
-            sudo npm install
+            npm install
 
             # Make sure db is setup
-            sudo node ./db/databaseSetup.js
+            node ./db/databaseSetup.js
 
             # PM2 runs on the nodejs user
             runuser -u nodejs -- pm2 restart spellbook
