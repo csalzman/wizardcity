@@ -39,21 +39,31 @@ app.listen(3000, () => {
 // Defining our static routes
 // TODO: better way to do this?
 app.get("/", (req, res) => {
-  res.render("index");
+  res.render("index", {
+    title: "Wizard City",
+  });
 });
 
 app.get("/maps", (req, res) => {
-  res.render("maps");
+  res.render("maps", {
+    title: "Maps",
+  });
 });
 
 app.get("/terraform", (req, res) => {
-  res.render("terraform");
+  res.render("terraform", {
+    title: "Terraform",
+  });
 });
 
 app.get("/wizards", (req, res) => {
-  res.render("wizards");
+  res.render("wizards", {
+    title: "Wizards",
+  });
 });
 
 app.get("/login", (req, res) => {
-  res.render("login");
+  res.render("login", {
+    title: "Login",
+  });
 });
