@@ -3,3 +3,4 @@ node_modules/
 db/database.db
 db/database.db-shm
 db/database.db-wal
+.env
