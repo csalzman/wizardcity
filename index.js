@@ -6,6 +6,8 @@ require("./db/databasesetup.js");
 
 const app = express();
 
+app.use(express.static("crystalball"));
+
 // Allow for json
 app.use(express.json());
 
@@ -14,12 +16,12 @@ app.use(express.json());
 app.use(cors());
 
 // Routes
-const wizardsRoutes = require("./routes/wizards.js");
-const mapsRoutes = require("./routes/maps.js");
-const cellsRoutes = require("./routes/cells.js");
-app.use(wizardsRoutes);
-app.use(mapsRoutes);
-app.use(cellsRoutes);
+const wizardsRoutes = require("./spellbook/wizards.js");
+const mapsRoutes = require("./spellbook/maps.js");
+const cellsRoutes = require("./spellbook/cells.js");
+app.use("/spellbook", wizardsRoutes);
+app.use("/spellbook", mapsRoutes);
+app.use("/spellbook", cellsRoutes);
 
 // Start app
 app.listen(3000, () => {

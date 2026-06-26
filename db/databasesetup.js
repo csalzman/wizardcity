@@ -10,7 +10,7 @@ const db = require("better-sqlite3")(DB_PATH, {
 db.pragma("journal_mode = WAL");
 
 // Run through inital schema
-// TODO: possibly move this initial setup to a totally different codepath
+// TODO: possibly move this initial setup to a totally different codepath. It's fine here for now.
 const sql = fs.readFileSync(SCHEMA_PATH, "utf8");
 db.exec(sql);
 
