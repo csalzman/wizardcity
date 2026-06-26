@@ -32,8 +32,5 @@ jobs:
             # Do NPM things
             npm install
 
-            # Make sure db is setup
-            node ./db/databasesetup.js
-
             # PM2 runs on the nodejs user
             runuser -u nodejs -- pm2 restart wizardcity
