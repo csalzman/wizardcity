@@ -1,18 +1,20 @@
 require("dotenv").config();
 const express = require("express");
-const cors = require("cors");
 
 // Make sure db is setup
 require("./db/databasesetup.js");
 
 const app = express();
 
+// TODO: not sure we need this anymore
 // Allow for serving static files without html at the end
 const staticOptions = {
   extensions: ["html"],
 };
+app.use(express.static("./crystalball", staticOptions));
 
-app.use(express.static("crystalball", staticOptions));
+app.set("views", "./crystalball");
+app.set("view engine", "ejs");
 
 // Allow for json
 app.use(express.json());
@@ -31,5 +33,27 @@ app.use("/spellbook", cellsRoutes);
 
 // Start app
 app.listen(3000, () => {
-  console.log("SPELLBOOK is running on http://localhost:3000");
+  console.log("WIZARDCITY is running on http://localhost:3000");
+});
+
+// Defining our static routes
+// TODO: better way to do this?
+app.get("/", (req, res) => {
+  res.render("index");
+});
+
+app.get("/maps", (req, res) => {
+  res.render("maps");
+});
+
+app.get("/terraform", (req, res) => {
+  res.render("terraform");
+});
+
+app.get("/wizards", (req, res) => {
+  res.render("wizards");
+});
+
+app.get("/login", (req, res) => {
+  res.render("login");
 });

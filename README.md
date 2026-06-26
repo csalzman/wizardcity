@@ -26,10 +26,10 @@ Deploy script assumes that a pm2 process called wizardcity is running via pm2 fr
 
 `pm2 start ./index.js --name "wizardcity"`
 
-`pm2 save` should start this back up on reboot.
+pm2 is setup to start it back up on reboot (setup using `pm2 save`).
 
 TODO: not sure if the permissions are getting reset every time this goes out. If so, update the deploy script to handle it.
 
-## Production
+## Production Notes
 
 Production and dev db is the same right now. As this project moves forward these will become separate.
