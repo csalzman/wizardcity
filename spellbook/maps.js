@@ -16,15 +16,20 @@ router.get("/maps/:id", (req, res) => {
   const mapInfo = db.prepare(stmt).all(req.params.id);
   console.log(mapInfo);
 
-  res.json(mapInfo);
+  // TODO: this renders the cell.ejs file. This needs to loop through anyof the cells and fill in details about the cells
+  res.render("map-components/map", { text: "cell" });
+
+  // this also works. whatever is sent back needs to match what is being lazy loaded to get replaced
+  // res.send('<div id="map">bar</div>)
 });
 
 // Create a new map
 router.post("/maps", (req, res) => {
-  const stmt = db.prepare("INSERT INTO maps (name) VALUES (?)");
+  const stmt = db.prepare("INSERT INTO maps (name) VALUES (?) RETURNING *");
 
-  stmt.run(req.body.name);
+  const r = stmt.run(req.body.name);
 
+  console.log(r);
   res.json();
 });
 

@@ -19,6 +19,8 @@ app.set("view engine", "ejs");
 // Allow for json
 app.use(express.json());
 
+app.use(express.urlencoded({ extended: true }));
+
 // Adds headers: Access-Control-Allow-Origin: *
 // TODO: probably only want this for local dev
 // app.use(cors());

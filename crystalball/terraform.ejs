@@ -1,10 +1,13 @@
 <html>
+  <%- include('partials/head') %>
   <body>
     <h1>Terraform</h1>
     <%- include('partials/header') %>
-    <form method="POST" action="http://localhost:3000/maps">
+    <form id="terraformform">
       <label for="name">Name</label><input name="name" id="name" />
-      <button type="submit">Terraform Plane</button>
+      <button data-on:click="@post('spellbook/maps', {contentType: 'form'})">
+        Terraform
+      </button>
     </form>
   </body>
 </html>

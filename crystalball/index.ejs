@@ -1,34 +1,11 @@
 <html>
+  <%- include('partials/head') %>
   <body>
     <h1>WIZARD CITY</h1>
     <%- include('partials/header') %>
-    <div id="map"></div>
+
+    <div id="map" data-init="@get('/spellbook/maps/xyz')">
+      Loading initial state...
+    </div>
   </body>
-
-  <script>
-    async function getData() {
-      const url = "/spellbook/maps/xyz";
-      try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(`Response status: ${response.status}`);
-        }
-
-        const result = await response.json();
-        console.log(result);
-        return result;
-      } catch (error) {
-        console.error(error.message);
-      }
-    }
-
-    const data = getData();
-
-    const mapElement = document.getElementById("map");
-    data.forEach((d) => {
-      const newDiv = document.createElement("div");
-      newDiv.appendChild(d.x);
-      mapElement.appendChild(newDiv);
-    });
-  </script>
 </html>
