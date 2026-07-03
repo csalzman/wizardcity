@@ -1,13 +1,15 @@
 <html>
   <%- include('partials/head') %>
   <body>
-    <h1>Terraform</h1>
     <%- include('partials/header') %>
     <form id="terraformform">
       <label for="name">Name</label><input name="name" id="name" />
-      <button data-on:click="@post('spellbook/maps', {contentType: 'form'})">
+      <button
+        data-on:click="@post('spellbook/create-map', {contentType: 'form'})"
+      >
         Terraform
       </button>
     </form>
+    <div id="terraform-output"></div>
   </body>
 </html>

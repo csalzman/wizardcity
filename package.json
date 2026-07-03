@@ -3,6 +3,9 @@
     "dev": "npm install && nodemon node index.js"
   },
   "dependencies": {
+    "@libsql/client": "^0.17.4",
+    "@starfederation/datastar-sdk": "^1.0.0",
+    "@tursodatabase/serverless": "^1.2.3",
     "abbrev": "^4.0.0",
     "base64-js": "^1.5.1",
     "better-sqlite3": "^12.11.1",

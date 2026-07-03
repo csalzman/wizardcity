@@ -1,20 +1,21 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../db/databasesetup.js");
+const dbClient = require("../db/databaseconnect.js");
 
 // Get all maps
-router.get("/maps/", (req, res) => {
-  const stmt = db.prepare("SELECT * FROM maps").all();
+router.get("/maps/", async (req, res) => {
+  const stmt = await dbClient.prepare("SELECT * FROM maps");
+  const maps = await stmt.all();
 
-  res.json(stmt);
+  res.json(maps);
 });
 
 // Get map information
-router.get("/maps/:id", (req, res) => {
-  const stmt = "SELECT * FROM cells WHERE map = ?";
+router.get("/maps/:id", async (req, res) => {
+  const stmt = await dbClient.prepare("SELECT * FROM cells WHERE map = ?");
 
-  const mapInfo = db.prepare(stmt).all(req.params.id);
-  console.log(mapInfo);
+  const map = await stmt.all(req.params.id);
+  console.log(map);
 
   // TODO: this renders the cell.ejs file. This needs to loop through anyof the cells and fill in details about the cells
   res.render("map-components/map", { text: "cell" });
@@ -24,13 +25,47 @@ router.get("/maps/:id", (req, res) => {
 });
 
 // Create a new map
-router.post("/maps", (req, res) => {
-  const stmt = db.prepare("INSERT INTO maps (name) VALUES (?) RETURNING *");
+router.post("/create-map", async (req, res) => {
+  // Create map
+  let inserted = {};
+  try {
+    const mapStmt = await dbClient.prepare(
+      "INSERT INTO maps (name) VALUES (?) RETURNING *",
+    );
+    inserted = await mapStmt.get([req.body.name]);
+  } catch {
+    res.send(`<div id='terraform-output'>Error with map creation</div>`);
+  }
 
-  const r = stmt.run(req.body.name);
+  // TODO: catch any errors here like if the name is already taken
 
-  console.log(r);
-  res.json();
+  // Generate cells
+  const mapId = inserted.id;
+
+  const cellStmt = "INSERT INTO cells (map, x, y) VALUES (?, ?, ?)";
+
+  const mapSize = 10;
+
+  const arr = [];
+
+  for (let i = 0; i < mapSize; i++) {
+    for (let j = 0; j < mapSize; j++) {
+      arr.push({ sql: cellStmt, args: [mapId, i, j] });
+    }
+  }
+
+  await dbClient.batch(arr);
+
+  const getCellsStmt = await dbClient.prepare(
+    "SELECT * FROM cells WHERE map = ?",
+  );
+
+  const cells = await getCellsStmt.all(mapId);
+
+  // TODO: replace with something else like a button to go to the map
+  console.log(cells);
+
+  res.send(`<div id='terraform-output'>Map created: ${inserted.name}</div>`);
 });
 
 module.exports = router;

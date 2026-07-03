@@ -3,31 +3,34 @@ const router = express.Router();
 const db = require("../db/databasesetup.js");
 
 // Get all wizards
-router.get("/wizards", (req, res) => {
-  const stmt = db.prepare("SELECT * FROM wizards").all();
+router.get("/wizards", async (req, res) => {
+  const stmt = await db.prepare("SELECT * FROM wizards").all();
 
   res.json(stmt);
 });
 
 // Create a new wizard
 // TODO: this will need to require a password too
-router.post("/wizards", (req, res) => {
-  const stmt = db.prepare(
+router.post("/wizards", async (req, res) => {
+  const stmt = await db.prepare(
     "INSERT INTO wizards (wizard_name, email, color) VALUES ('fooa', 'bara', 'baza')",
   );
 
-  stmt.run();
+  const wizard = await stmt.get();
+  console.log(wizard);
 
-  res.json();
+  res.send(`<div id='wizard'>Wizard created: ${inserted.wizard_name}</div>`);
 });
 
 // Get a single wizard
-router.get("/wizards/:id", (req, res) => {
-  const getWizard = db
-    .prepare("SELECT * FROM wizards WHERE wizard_name = ?")
-    .all(req.params.id);
+router.get("/wizards/:wizard_name", async (req, res) => {
+  const stmt = await db.prepare("SELECT * FROM wizards WHERE wizard_name = ?");
 
-  res.json(getWizard);
+  const wizard = await stmt.get(req.params.wizard_name);
+
+  console.log(wizard);
+
+  res.json(wizard);
 });
 
 module.exports = router;

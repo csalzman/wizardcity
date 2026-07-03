@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 // TODO: probably only want this for local dev
 // app.use(cors());
 
-// Routes
+// Backend routes
 const wizardsRoutes = require("./spellbook/wizards.js");
 const mapsRoutes = require("./spellbook/maps.js");
 const cellsRoutes = require("./spellbook/cells.js");
@@ -38,31 +38,53 @@ app.listen(3000, () => {
   console.log("WIZARDCITY is running on http://localhost:3000");
 });
 
-// Defining our static routes
+// Defining our frontend routes
 // TODO: better way to do this?
+
+// Homepage
 app.get("/", (req, res) => {
   res.render("index", {
     title: "Wizard City",
   });
 });
 
+// Map related
+// Show list of all maps
 app.get("/maps", (req, res) => {
   res.render("maps", {
     title: "Maps",
   });
 });
 
+// Show map
+app.get("/map/:map_name", (req, res) => {
+  res.render("map", {
+    title: req.params.map_name,
+  });
+});
+
+//Generate new map
 app.get("/terraform", (req, res) => {
   res.render("terraform", {
     title: "Terraform",
   });
 });
 
+// List of wizards
 app.get("/wizards", (req, res) => {
   res.render("wizards", {
     title: "Wizards",
   });
 });
+
+// Individual wizard
+app.get("/wizards/:wizard_name", (req, res) => {
+  res.render("wizard", {
+    title: req.params.wizard_name,
+  });
+});
+
+//
 
 app.get("/login", (req, res) => {
   res.render("login", {
