@@ -1,6 +1,7 @@
 node_modules/
 .DS_Store
-db/database.db
-db/database.db-shm
-db/database.db-wal
 .env
+dist/
+tsconfig.tsbuildinfo
+install-state.gz
+.yarn/install-state.gz

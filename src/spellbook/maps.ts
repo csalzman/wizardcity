@@ -1,5 +1,6 @@
 import express from "express";
 import db from "../db/databaseconnect";
+
 const mapsRoutes = express.Router();
 
 // Get all maps
@@ -26,44 +27,69 @@ mapsRoutes.get("/maps/:id", async (req: any, res: any) => {
 
 // Create a new map
 mapsRoutes.post("/create-map", async (req: any, res: any) => {
+  res.writeHead(200, {
+    "Content-Type": "text/event-stream",
+    "Cache-Control": "no-cache",
+  });
+
+  res.write(
+    `event: datastar-patch-signals\ndata: signals {terraformOutput: "creating" }\n\n`,
+  );
+
   // Create map
-  let inserted;
+  let inserted: any;
   try {
     const mapStmt = await db.prepare(
       "INSERT INTO maps (name) VALUES (?) RETURNING *",
     );
     inserted = await mapStmt.get([req.body.name]);
   } catch {
-    res.send(`<div id='terraform-output'>Error with map creation</div>`);
-  }
+    res.write(
+      `event: datastar-patch-signals\ndata: signals {terraformOutput: "Name already taken" }\n\n`,
+    );
 
-  // TODO: catch any errors here like if the name is already taken
+    return res.end();
+  }
+  res.write(
+    `event: datastar-patch-signals\ndata: signals {terraformOutput: "Map made, generating cells" }\n\n`,
+  );
 
   // Generate cells
   const mapId = inserted?.id;
-
-  const cellStmt = "INSERT INTO cells (map, x, y) VALUES (?, ?, ?)";
-
-  const mapSize = 10;
-
+  const cellStmt = "INSERT INTO cells (map, x, y) VALUES";
+  const mapSize = 50;
   const arr = [];
 
-  for (let i = 0; i < mapSize; i++) {
-    for (let j = 0; j < mapSize; j++) {
-      arr.push({ sql: cellStmt, args: [mapId, i, j] });
+  let insertString = cellStmt;
+
+  try {
+    // Build sql and array of values
+    for (let i = 0; i < mapSize; i++) {
+      for (let j = 0; j < mapSize; j++) {
+        insertString += "(?, ?, ?) ,";
+        arr.push(...[mapId, i, j]);
+      }
     }
+
+    // Remove last comma
+    insertString = insertString.slice(0, -1);
+
+    // Execute insert
+    const insertStmt = await db.prepare(insertString);
+    await insertStmt.all(arr);
+  } catch (e) {
+    console.log(e);
+    res.write(
+      `event: datastar-patch-signals\ndata: signals {terraformOutput: "Error generating cells" }\n\n`,
+    );
+    return res.end();
   }
 
-  await db.batch(arr);
+  res.write(
+    `event: datastar-patch-signals\ndata: signals {terraformOutput: "Map created! Cells generated!" }\n\n`,
+  );
 
-  const getCellsStmt = await db.prepare("SELECT * FROM cells WHERE map = ?");
-
-  const cells = await getCellsStmt.all(mapId);
-
-  // TODO: replace with something else like a button to go to the map
-  console.log(cells);
-
-  res.send(`<div id='terraform-output'>Map created: ${inserted?.name}</div>`);
+  return res.end();
 });
 
 export default mapsRoutes;

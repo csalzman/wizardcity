@@ -1,5 +1,7 @@
 import "dotenv/config";
 import express from "express";
+import SSE from "express-sse";
+const sse = new SSE();
 
 // Make sure db is setup
 import seedDb from "./src/db/databasesetup";
