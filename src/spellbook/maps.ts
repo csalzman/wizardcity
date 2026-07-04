@@ -1,18 +1,18 @@
-const express = require("express");
-const router = express.Router();
-const dbClient = require("../db/databaseconnect.js");
+import express from "express";
+import db from "../db/databaseconnect";
+const mapsRoutes = express.Router();
 
 // Get all maps
-router.get("/maps/", async (req, res) => {
-  const stmt = await dbClient.prepare("SELECT * FROM maps");
+mapsRoutes.get("/maps/", async (req: any, res: any) => {
+  const stmt = await db.prepare("SELECT * FROM maps");
   const maps = await stmt.all();
 
   res.json(maps);
 });
 
 // Get map information
-router.get("/maps/:id", async (req, res) => {
-  const stmt = await dbClient.prepare("SELECT * FROM cells WHERE map = ?");
+mapsRoutes.get("/maps/:id", async (req: any, res: any) => {
+  const stmt = await db.prepare("SELECT * FROM cells WHERE map = ?");
 
   const map = await stmt.all(req.params.id);
   console.log(map);
@@ -25,11 +25,11 @@ router.get("/maps/:id", async (req, res) => {
 });
 
 // Create a new map
-router.post("/create-map", async (req, res) => {
+mapsRoutes.post("/create-map", async (req: any, res: any) => {
   // Create map
-  let inserted = {};
+  let inserted;
   try {
-    const mapStmt = await dbClient.prepare(
+    const mapStmt = await db.prepare(
       "INSERT INTO maps (name) VALUES (?) RETURNING *",
     );
     inserted = await mapStmt.get([req.body.name]);
@@ -40,7 +40,7 @@ router.post("/create-map", async (req, res) => {
   // TODO: catch any errors here like if the name is already taken
 
   // Generate cells
-  const mapId = inserted.id;
+  const mapId = inserted?.id;
 
   const cellStmt = "INSERT INTO cells (map, x, y) VALUES (?, ?, ?)";
 
@@ -54,18 +54,16 @@ router.post("/create-map", async (req, res) => {
     }
   }
 
-  await dbClient.batch(arr);
+  await db.batch(arr);
 
-  const getCellsStmt = await dbClient.prepare(
-    "SELECT * FROM cells WHERE map = ?",
-  );
+  const getCellsStmt = await db.prepare("SELECT * FROM cells WHERE map = ?");
 
   const cells = await getCellsStmt.all(mapId);
 
   // TODO: replace with something else like a button to go to the map
   console.log(cells);
 
-  res.send(`<div id='terraform-output'>Map created: ${inserted.name}</div>`);
+  res.send(`<div id='terraform-output'>Map created: ${inserted?.name}</div>`);
 });
 
-module.exports = router;
+export default mapsRoutes;

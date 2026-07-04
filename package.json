@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "npm install && nodemon node index.js"
+    "dev": "yarn && tsc && nodemon index.ts"
   },
   "dependencies": {
     "@libsql/client": "^0.17.4",
@@ -8,7 +8,6 @@
     "@tursodatabase/serverless": "^1.2.3",
     "abbrev": "^4.0.0",
     "base64-js": "^1.5.1",
-    "better-sqlite3": "^12.11.1",
     "bindings": "^1.5.0",
     "bl": "^4.1.0",
     "buffer": "^5.7.1",
@@ -63,7 +62,9 @@
     "tar-fs": "^2.1.4",
     "tar-stream": "^2.2.0",
     "tinyglobby": "^0.2.17",
+    "ts-node": "^10.9.2",
     "tunnel-agent": "^0.6.0",
+    "typescript": "^6.0.3",
     "undici": "^6.27.0",
     "util-deprecate": "^1.0.2",
     "which": "^6.0.1",
@@ -72,5 +73,9 @@
   },
   "allowScripts": {
     "sqlite3@6.0.1": true
+  },
+  "packageManager": "yarn@4.17.0",
+  "devDependencies": {
+    "@types/express": "^5.0.6"
   }
 }
