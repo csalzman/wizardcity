@@ -13,16 +13,25 @@ mapsRoutes.get("/maps/", async (req: any, res: any) => {
 
 // Get map information
 mapsRoutes.get("/maps/:id", async (req: any, res: any) => {
-  const stmt = await db.prepare("SELECT * FROM cells WHERE map = ?");
+  // Get map
+  const mapName = req.params.id;
+  const getMapStmt = await db.prepare("SELECT * FROM maps WHERE name = ?");
+  const map = await getMapStmt.get(mapName);
 
-  const map = await stmt.all(req.params.id);
-  console.log(map);
+  // If no map found return early
+  if (!map) {
+    res.write(
+      `event: datastar-patch-elements\ndata: elements <div id="map">Map Not Found</map>\n\n`,
+    );
+    return res.end();
+  }
+
+  // Get map cells
+  const cellStmt = await db.prepare("SELECT * FROM cells WHERE map = ?");
+  const cells = await cellStmt.all(map?.id);
 
   // TODO: this renders the cell.ejs file. This needs to loop through anyof the cells and fill in details about the cells
-  res.render("map-components/map", { text: "cell" });
-
-  // this also works. whatever is sent back needs to match what is being lazy loaded to get replaced
-  // res.send('<div id="map">bar</div>)
+  res.render("map-components/map", { cells: cells });
 });
 
 // Create a new map

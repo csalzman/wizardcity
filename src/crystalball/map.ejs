@@ -2,6 +2,8 @@
   <%- include('partials/head') %>
   <body>
     <%- include('partials/header') %>
-    <p>Map</p>
+    <div id="map" data-init="@get('/spellbook/maps/<%- title %>')">
+      Loading initial state...
+    </div>
   </body>
 </html>

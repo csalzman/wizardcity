@@ -1,1 +1,15 @@
-<div id="map"><%- include('cell') %></div>
+<div
+  id="map"
+  style="
+    position: relative;
+    overflow-y: auto;
+    overflow-x: auto;
+    height: 500px;
+    width: 500px;
+    border: 1px solid black;
+  "
+>
+  <% cells.forEach(function(cell) { %>
+        <%- include('./cell', {cell: cell, cellSize: 50}) %>
+    <% }); %>
+</div>

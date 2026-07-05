@@ -1,1 +1,13 @@
-<div id="map"><%= text %></div>
+<div
+  id="<%= cell.id %>"
+  style="
+    position: absolute;
+    top: <%= cell.y * cellSize %>px;
+    left: <%= cell.x * cellSize %>px;
+    border: 1px black solid;
+    width: <%=cellSize %>;
+    height: <%=cellSize %>;
+  "
+>
+  <%= cell.id %>
+</div>
