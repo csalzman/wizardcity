@@ -10,6 +10,8 @@ const activeClients = new Set<Response>();
 
 // Make sure db is setup
 import seedDb from "./db/databasesetup";
+
+// Seed everytime, will mostly be a no-op
 seedDb();
 
 const app = express();
