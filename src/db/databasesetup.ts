@@ -3,7 +3,7 @@ const path = require("path");
 
 const Database = require("libsql");
 
-const SCHEMA_PATH = path.join(__dirname, "initialSchema.sql");
+import schema from "./initialSchema";
 
 const url = process.env.DB_URL;
 const authToken = process.env.DB_AUTH;
@@ -16,9 +16,7 @@ function seedDb() {
   const db = new Database(url, opts);
 
   // Run through inital schema
-  // TODO: possibly move this initial setup to a totally different codepath. It's fine here for now.
-  const sql = fs.readFileSync(SCHEMA_PATH, "utf8");
-  db.exec(sql);
+  db.exec(schema);
 }
 
 export default seedDb;

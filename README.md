@@ -24,7 +24,7 @@ This also restarts the pm2 command to get the backend app going.
 
 Deploy script assumes that a pm2 process called wizardcity is running via pm2 from this command running under the nodejs user on the server:
 
-`pm2 start ./index.js --name "wizardcity"`
+`pm2 start ./dist/index.js --name "wizardcity"`
 
 pm2 is setup to start it back up on reboot (setup using `pm2 save`).
 

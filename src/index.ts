@@ -3,13 +3,13 @@ import express, { Request, Response } from "express";
 import {
   globalBroadcastBroker,
   BROADCAST_EVENT_NAME,
-} from "./src/spellbook/events";
+} from "./spellbook/events";
 
 // Track all active Datastar SSE generators
 const activeClients = new Set<Response>();
 
 // Make sure db is setup
-import seedDb from "./src/db/databasesetup";
+import seedDb from "./db/databasesetup";
 seedDb();
 
 const app = express();
@@ -34,9 +34,9 @@ app.use(express.urlencoded({ extended: true }));
 // app.use(cors());
 
 // Backend routes
-import wizardsRoutes from "./src/spellbook/wizards";
-import mapsRoutes from "./src/spellbook/maps";
-import cellsRoutes from "./src/spellbook/cells";
+import wizardsRoutes from "./spellbook/wizards";
+import mapsRoutes from "./spellbook/maps";
+import cellsRoutes from "./spellbook/cells";
 app.use("/spellbook", wizardsRoutes);
 app.use("/spellbook", mapsRoutes);
 app.use("/spellbook", cellsRoutes);

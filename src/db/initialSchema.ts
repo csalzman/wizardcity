@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS wizards (
+const schema = `CREATE TABLE IF NOT EXISTS wizards (
     id INTEGER PRIMARY KEY,
     wizard_name TEXT NOT NULL UNIQUE,
     email TEXT NOT NULL UNIQUE,
@@ -63,4 +63,6 @@ CREATE TABLE IF NOT EXISTS items (
     created_at created_at INTEGER DEFAULT (unixepoch()),
     updated_at created_at INTEGER DEFAULT (unixepoch()),
     deleted_at TEXT
-);
+);`
+
+export default schema;

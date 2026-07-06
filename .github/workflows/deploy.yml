@@ -29,8 +29,11 @@ jobs:
             # get latest changes
             git pull origin main
 
-            # Do NPM things
-            npm install
+            # Yarn things
+            yarn install
+
+            # Build to ./dist
+            tsc
 
             # PM2 runs on the nodejs user
             runuser -u nodejs -- pm2 restart wizardcity

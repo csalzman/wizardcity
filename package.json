@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "dev": "yarn && tsc && nodemon index.ts"
+    "dev": "yarn && tsc && nodemon index.ts",
+    "prod": "yarn && tsc && node ./dist"
   },
   "dependencies": {
     "@libsql/client": "^0.17.4",
