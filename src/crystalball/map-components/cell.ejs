@@ -1,4 +1,5 @@
 <div
+  data-on:click="@post('../spellbook/cell/<%= cell.id %>')"
   id="<%= cell.id %>"
   style="
     position: absolute;
@@ -7,6 +8,7 @@
     border: 1px black solid;
     width: <%=cellSize %>;
     height: <%=cellSize %>;
+    color: <%= cell.color %>;
   "
 >
   <%= cell.id %>

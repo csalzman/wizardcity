@@ -7,3 +7,9 @@
   <p><a href="/login">Create or Assume a Wizard</a></p>
   <p><a href="https://github.com/csalzman/wizardcity">github</a></p>
 </nav>
+<!-- Automatically hooks into the SSE loop on load -->
+
+<h3 data-init="@get('/stream')">Live Feed Notifications</h3>
+
+<!-- This targeted element gets instantly swapped by the broadcast -->
+<div id="status-feed">Waiting for updates...</div>
