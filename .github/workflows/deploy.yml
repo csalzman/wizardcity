@@ -35,5 +35,5 @@ jobs:
             # Build to ./dist
             tsc
 
-            # PM2 runs on the nodejs user
+            # Restart PM2. PM2 runs on the nodejs user
             runuser -u nodejs -- pm2 restart wizardcity
