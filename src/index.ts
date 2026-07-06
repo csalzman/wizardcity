@@ -138,7 +138,7 @@ app.post("/broadcast", (req, res) => {
   const htmlFragment = `<div id="status-feed">${req.body.message}</div>`;
 
   // Format precisely matching the Datastar specification
-  const payload = `event: datastar-patch-elements\ndata: fragments ${htmlFragment}\n\n`;
+  const payload = `event: datastar-patch-elements\ndata: elements ${htmlFragment}\n\n`;
 
   activeClients.forEach((clientRes) => {
     clientRes.write(payload);

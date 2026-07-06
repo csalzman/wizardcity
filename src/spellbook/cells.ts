@@ -34,7 +34,7 @@ cellsRoutes.post("/cell/:cell_id", async (req: any, res: any) => {
 
   // TODO: any additional flags here?
   const stmt = await db.prepare(
-    "UPDATE cells SET color = 'red' WHERE id = (?) RETURNING *",
+    "UPDATE cells SET color = 'green' WHERE id = (?) RETURNING *",
   );
 
   const cell = await stmt.get(cellId);
