@@ -1,5 +1,5 @@
 <div
-  data-on:click="@post('../spellbook/cell/<%= cell.id %>')"
+  data-on:click="$isModalOpen = true; $cellEditing = <%= cell.id %>"
   id="<%= cell.id %>"
   style="
     position: absolute;
