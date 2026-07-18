@@ -11,20 +11,26 @@
 <!-- This targeted element gets instantly swapped by the broadcast -->
 <div id="status-feed">Waiting for updates...</div>
 
-<div data-signals="{isModalOpen: false}">
-  <div id="myModal" data-show="$isModalOpen" style="display: none">
-    <div class="modal-content">
-      <h2>Hello from the Modal!</h2>
-      <div data-text="$modalEditing"></div>
-      <button
-        data-on:click="
+<!-- holds our global data-signals -->
+<div data-signals="{isModalOpen: false}"></div>
+
+<div
+  id="edit-cell-modal"
+  data-show="$isModalOpen"
+  style="display: none"
+  class="modal"
+>
+  <div class="modal-content">
+    <h2>Hello from the Modal!</h2>
+    <div data-text="$modalEditing"></div>
+    <button
+      data-on:click="
         $isModalOpen = false;
         @post(`../spellbook/cell/${$cellEditing}`);
         $cellEditing = undefined;
         "
-      >
-        Close
-      </button>
-    </div>
+    >
+      Close
+    </button>
   </div>
 </div>
