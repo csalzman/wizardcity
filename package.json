@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "yarn && tsc && nodemon index.ts",
+    "dev": "yarn && tsc && nodemon node ./dist",
     "prod": "yarn && tsc && node ./dist"
   },
   "dependencies": {
