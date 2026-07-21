@@ -1,0 +1,22 @@
+<!-- holds our global data-signals -->
+<div
+  data-signals="{isViewOpen: false}"
+  id="cell-modal"
+  data-show="$isViewOpen"
+  style="display: none"
+  class="modal"
+>
+  <div class="modal-content">
+    <h2>
+      WIZARD, HERE IS WHAT YOU SEEK
+      <span data-text="$cellSelected.id"></span>
+    </h2>
+    <div>
+      <ul>
+        <template data-each="key in Object.keys($cellSelected)">
+          <li data-text="$key"></li>
+        </template>
+      </ul>
+    </div>
+  </div>
+</div>

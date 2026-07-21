@@ -1,0 +1,31 @@
+html {
+  font-family: sans-serif;
+  font-size: 16px;
+}
+
+#map-wrapper {
+  position: relative;
+  display: flex;
+}
+
+.modal {
+  background-color: gray;
+}
+
+#map {
+  position: relative;
+  overflow-y: auto;
+  overflow-x: auto;
+  height: 500px;
+  width: 500px;
+  border: 1px solid black;
+}
+
+.cell {
+  position: absolute;
+  border: 1px black solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}

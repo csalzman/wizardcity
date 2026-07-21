@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "yarn && tsc && nodemon node ./dist",
+    "dev": "nodemon --watch src ./src/index.ts",
     "prod": "yarn && tsc && node ./dist"
   },
   "dependencies": {

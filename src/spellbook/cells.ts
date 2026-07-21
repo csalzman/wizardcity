@@ -2,9 +2,11 @@ import express from "express";
 import db from "../db/databaseconnect";
 const cellsRoutes = express.Router();
 
-// Create cells. Should only be used to generate map initially
+// Update a cell
 cellsRoutes.post("/cell/:cell_id", async (req: any, res: any) => {
   const cellId = req.params.cell_id;
+
+  const { color, map_link, region, nature, description } = req.body;
 
   res.writeHead(200, {
     "Content-Type": "text/event-stream",
@@ -12,11 +14,18 @@ cellsRoutes.post("/cell/:cell_id", async (req: any, res: any) => {
   });
 
   // TODO: any additional flags here?
-  const stmt = await db.prepare(
-    "UPDATE cells SET color = 'green' WHERE id = (?) RETURNING *",
-  );
+  const stmt = await db.prepare(`
+    UPDATE cells 
+    SET 
+      color = ?, 
+      map_link = ?, 
+      nature = ?,
+      description = ?
+    WHERE id = (?) 
+    RETURNING *
+  `);
 
-  const cell = await stmt.get(cellId);
+  const cell = await stmt.get([color, map_link, nature, description, cellId]);
 
   // TODO: this and the SSE write below it are nonsense and needs to be pulled into it's own function for reuse
   const htmlSnippet: any = await new Promise((resolve, reject) => {
