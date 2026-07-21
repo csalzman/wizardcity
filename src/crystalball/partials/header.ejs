@@ -7,30 +7,3 @@
   <p><a href="/login">Create or Assume a Wizard</a></p>
   <p><a href="https://github.com/csalzman/wizardcity">github</a></p>
 </nav>
-
-<!-- This targeted element gets instantly swapped by the broadcast -->
-<div id="status-feed">Waiting for updates...</div>
-
-<!-- holds our global data-signals -->
-<div data-signals="{isModalOpen: false}"></div>
-
-<div
-  id="edit-cell-modal"
-  data-show="$isModalOpen"
-  style="display: none"
-  class="modal"
->
-  <div class="modal-content">
-    <h2>Hello from the Modal!</h2>
-    <div data-text="$modalEditing"></div>
-    <button
-      data-on:click="
-        $isModalOpen = false;
-        @post(`../spellbook/cell/${$cellEditing}`);
-        $cellEditing = undefined;
-        "
-    >
-      Close
-    </button>
-  </div>
-</div>

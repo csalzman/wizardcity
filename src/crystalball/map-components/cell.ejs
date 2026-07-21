@@ -1,15 +1,18 @@
 <div
-  data-on:click="$isModalOpen = true; $cellEditing = <%= cell.id %>"
+  data-on:click="
+  $cellSelected = <%= JSON.stringify(cell) %>;
+  $isOpenEdit = $editMode ? true : false;
+  $isViewOpen = $editMode ? false : true; 
+   "
   id="<%= cell.id %>"
   style="
-    position: absolute;
     top: <%= cell.y * cellSize %>px;
     left: <%= cell.x * cellSize %>px;
-    border: 1px black solid;
     width: <%=cellSize %>px;
     height: <%=cellSize %>px;
-    color: <%= cell.color %>;
+    background-color: <%= cell.color %>;
   "
+  class="cell"
 >
   <%= cell.id %>
 </div>
