@@ -3,6 +3,17 @@ html {
   font-size: 16px;
 }
 
+#footer {
+  display: flex;
+  justify-content: center;
+}
+
+#main-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
 #map-wrapper {
   position: relative;
   display: flex;

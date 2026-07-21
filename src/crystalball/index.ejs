@@ -1,11 +1,13 @@
 <html>
   <%- include('partials/head') %>
   <body>
-    <h1>WIZARD CITY</h1>
-    <%- include('partials/header') %>
+    
+    <%- include('partials/header', {title: 'Wizard City'}) %>
 
-    <div id="map" data-init="@get('/spellbook/maps/xyz')">
+    <div>Random Map</div>
+    <div id="map" data-init="@get('/spellbook/maps/asdf')">
       Loading initial state...
     </div>
+    <%- include('partials/footer') %>
   </body>
 </html>
