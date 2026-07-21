@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS cells (
     map_link TEXT,
     region TEXT,
     nature TEXT,
+    description TEXT,
     created_at created_at INTEGER DEFAULT (unixepoch()),
     updated_at created_at INTEGER DEFAULT (unixepoch()),
     deleted_at TEXT,
@@ -63,6 +64,6 @@ CREATE TABLE IF NOT EXISTS items (
     created_at created_at INTEGER DEFAULT (unixepoch()),
     updated_at created_at INTEGER DEFAULT (unixepoch()),
     deleted_at TEXT
-);`
+);`;
 
 export default schema;
