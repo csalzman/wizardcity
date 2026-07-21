@@ -1,0 +1,7 @@
+<div id="map-list">
+    <ul>
+  <% maps.forEach(function(map) { %>
+        <li><a href="/map/<%= map.name %>"><%= map.name %></a></li>
+    <% }); %>
+    </ul>
+</div>
