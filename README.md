@@ -1,26 +1,38 @@
 # WIZARD CITY
 
+WIZARD! WELCOME TO THE CITY. WHAT MAPS WILL YOU MAKE?
+
+---
+
+Wizard City is a shared map making system of interconnected maps. Every Wizard (user) will have their own map and then will have access to shared maps. They can also make more maps at will.
+
+Each cell can link to another cell in any other map: perhaps to the interior of a building. Or into a dungeon, or a multi-story tree fort. Or the astral plane.
+
+NPWs (non-player wizards) can exist on cells. So can magic items and buildings and secrets.
+
+## Technomagic
+
 Express app that uses [turso](https://turso.tech) for managing the db. To connect to the db you'll need the url and auth token. Get from another dev or set up a db at turso to start from scratch.
 
-## Crystal Ball
+### Crystal Ball
 
-Frontend, served as static files.
+Frontend, served as static files. Uses EJS and Datastar
 
-## Spellbook
+### Spellbook
 
-Backend API
+"Backend API". Uses Datastar
 
-## DB
+### DB
 
-libsql for managing a sqlite3 database on turso. On app startup we run a startup sql to make sure that we have the tables we need.
+libsql for managing a sqlite3 database on turso. On app startup we run a startup sql to make sure that we have the tables we need. TBD: how to handle migrations.
 
-## Deploys
+### Deploys
 
 Deploys happen via the github action deploy.yml. This copies files to the right folder on the server and runs any commands that are needed for setup.
 
 This also restarts the pm2 command to get the backend app going.
 
-## Server setup
+### Server setup
 
 Deploy script assumes that a pm2 process called wizardcity is running via pm2 from this command running under the nodejs user on the server:
 
@@ -30,6 +42,6 @@ pm2 is setup to start it back up on reboot (setup using `pm2 save`).
 
 TODO: not sure if the permissions are getting reset every time this goes out. If so, update the deploy script to handle it.
 
-## Production Notes
+### Production Notes
 
 Production and dev db is the same right now. As this project moves forward these will become separate.
