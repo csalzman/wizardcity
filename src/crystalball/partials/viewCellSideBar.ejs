@@ -12,11 +12,15 @@
       <span data-text="$cellSelected.id"></span>
     </h2>
     <div>
-      <ul>
-        <template data-each="key in Object.keys($cellSelected)">
-          <li data-text="$key"></li>
-        </template>
-      </ul>
+      <span
+        data-text="($cellSelected && 'description' in $cellSelected) ? $cellSelected.description : 'No description' || 'No Description'"
+      ></span>
+      <span
+        data-text="($cellSelected && 'nature' in $cellSelected) ? $cellSelected.nature : 'No nature'"
+      ></span>
+      <span
+        data-text="($cellSelected && 'region' in $cellSelected) ? $cellSelected.region : 'No region'"
+      ></span>
     </div>
   </div>
 </div>

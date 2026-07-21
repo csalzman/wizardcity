@@ -4,11 +4,11 @@ import db from "../db/databaseconnect";
 const mapsRoutes = express.Router();
 
 // Get all maps
-mapsRoutes.get("/maps/", async (req: any, res: any) => {
+mapsRoutes.get("/list-maps/", async (req: any, res: any) => {
   const stmt = await db.prepare("SELECT * FROM maps");
   const maps = await stmt.all();
 
-  res.json(maps);
+  res.render("map-components/map-list", { maps: maps });
 });
 
 // Get map information
