@@ -65,7 +65,7 @@ mapsRoutes.post("/create-map", async (req: any, res: any) => {
 
   // Generate cells
   const mapId = inserted?.id;
-  const cellStmt = "INSERT INTO cells (map, x, y) VALUES";
+  const cellStmt = "INSERT INTO cells (map_id, x, y) VALUES";
   const mapSize = 50;
   const arr = [];
 
