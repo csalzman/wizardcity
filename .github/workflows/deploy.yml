@@ -21,7 +21,6 @@ jobs:
           port: ${{ secrets.DROPLET_PORT }} # usually 22 (optional)
           script: |
             set -e
-            su nodejs
             cd /var/www/wizardcity                  
             git fetch --all
 
@@ -31,8 +30,6 @@ jobs:
             # get latest changes
             git pull origin main
 
-            export NODE_OPTIONS="--max-old-space-size=4096"
-
             # Yarn things
             yarn install
 
@@ -40,4 +37,4 @@ jobs:
             tsc
 
             # Restart PM2. PM2 runs on the nodejs user
-            pm2 restart wizardcity
+            runuser -u nodejs -- pm2 restart wizardcity
