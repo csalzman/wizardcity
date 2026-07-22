@@ -5,7 +5,6 @@
   },
   "dependencies": {
     "@libsql/client": "^0.17.4",
-    "@starfederation/datastar-sdk": "^1.0.0",
     "@tursodatabase/serverless": "^1.2.3",
     "dotenv": "^17.4.2",
     "ejs": "^6.0.1",
