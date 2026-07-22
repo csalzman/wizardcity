@@ -27,7 +27,7 @@ mapsRoutes.get("/maps/:id", async (req: any, res: any) => {
   }
 
   // Get map cells
-  const cellStmt = await db.prepare("SELECT * FROM cells WHERE map = ?");
+  const cellStmt = await db.prepare("SELECT * FROM cells WHERE map_id = ?");
   const cells = await cellStmt.all(map?.id);
 
   // TODO: this renders the cell.ejs file. This needs to loop through anyof the cells and fill in details about the cells
