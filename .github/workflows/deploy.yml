@@ -31,8 +31,9 @@ jobs:
             # get latest changes
             git pull origin main
 
+            export NODE_OPTIONS="--max-old-space-size=4096"
+
             # Yarn things
-            yarn cache clean
             yarn install
 
             # Build to ./dist
