@@ -1,9 +1,9 @@
 <div
   data-on:click="
   $cellSelected = <%= JSON.stringify(cell) %>;
-  $isOpenEdit = $editMode ? true : false;
-  $isViewOpen = $editMode ? false : true; 
-   "
+  $isOpenEdit = $wandMode === 'EDIT';
+  $isViewOpen = $wandMode === 'VIEW';
+  "
   id="<%= cell.id %>"
   style="
     top: <%= cell.y * cellSize %>px;

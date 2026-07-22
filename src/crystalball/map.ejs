@@ -3,20 +3,14 @@
   <body>
     <%- include('partials/header') %>
     <div id="map-messages">Map messages</div>
-    <div id="wand-modes" data-signals="{editMode: false}">
-      <!-- TODO: make this look prettier -->
-      <button data-on:click="$editMode = !$editMode">
-        Toggle Edit Mode</span>
-      </button>
-      Edit Mode <span data-text="$editMode ? 'on' : 'off'"></span>
-    </div>
+    <%- include('partials/wand') %>
     <div id="map-wrapper">
       <div id="map" data-init="@get('/spellbook/maps/<%- title %>')">
         Loading initial state...
       </div>
       <div data-signals="{cellSelected: undefined}">
-      <%- include('partials/editCellSideBar') %>
-      <%- include('partials/viewCellSideBar') %>
+        <%- include('partials/editCellSideBar') %> <%-
+        include('partials/viewCellSideBar') %>
       </div>
     </div>
     <div data-text="JSON.stringify($cellSelected)"></div>
