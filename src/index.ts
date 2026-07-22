@@ -24,11 +24,7 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
-// Adds headers: Access-Control-Allow-Origin: *
-// TODO: probably only want this for local dev
-// app.use(cors());
-
-// Backend routes
+// Spellbook/Backend routes
 import wizardsRoutes from "./spellbook/wizards";
 import mapsRoutes from "./spellbook/maps";
 import cellsRoutes from "./spellbook/cells";
@@ -37,8 +33,6 @@ app.use("/spellbook", mapsRoutes);
 app.use("/spellbook", cellsRoutes);
 
 // Defining our frontend routes
-// TODO: better way to do this?
-
 // Homepage
 app.get("/", (req: any, res: any) => {
   res.render("index", {
@@ -79,14 +73,6 @@ app.get("/wizards", (req: any, res: any) => {
 app.get("/wizards/:wizard_name", (req: any, res: any) => {
   res.render("wizard", {
     title: req.params.wizard_name,
-  });
-});
-
-//
-
-app.get("/login", (req: any, res: any) => {
-  res.render("login", {
-    title: "Login",
   });
 });
 

@@ -1,4 +1,5 @@
-const schema = `CREATE TABLE IF NOT EXISTS wizards (
+const schema = `
+CREATE TABLE IF NOT EXISTS wizards (
     id INTEGER PRIMARY KEY,
     wizard_name TEXT NOT NULL UNIQUE,
     email TEXT NOT NULL UNIQUE,
@@ -20,19 +21,18 @@ CREATE TABLE IF NOT EXISTS maps (
 
 CREATE TABLE IF NOT EXISTS cells (
     id INTEGER PRIMARY KEY,
-    map INTEGER NOT NULL,
+    map_id INTEGER NOT NULL,
     x INTEGER NOT NULL,
     y INTEGER NOT NULL,
-    color TEXT,
     map_link TEXT,
-    region TEXT,
+    region INTEGER,
     nature TEXT,
     description TEXT,
     created_at created_at INTEGER DEFAULT (unixepoch()),
     updated_at created_at INTEGER DEFAULT (unixepoch()),
     deleted_at TEXT,
     -- TODO: should this be replace instead?
-    UNIQUE(map, x, y) ON CONFLICT IGNORE
+    UNIQUE(map_id, x, y) ON CONFLICT IGNORE
 );
 
 CREATE TABLE IF NOT EXISTS buildings (
@@ -61,6 +61,16 @@ CREATE TABLE IF NOT EXISTS items (
     item_name TEXT NOT NULL UNIQUE,
     cell_id INTEGER,
     facts TEXT,
+    created_at created_at INTEGER DEFAULT (unixepoch()),
+    updated_at created_at INTEGER DEFAULT (unixepoch()),
+    deleted_at TEXT
+);
+
+CREATE TABLE IF NOT EXISTS regions (
+    id INTEGER PRIMARY KEY,
+    region_name TEXT NOT NULL UNIQUE,
+    color TEXT NOT NULL UNIQUE,
+    description TEXT,
     created_at created_at INTEGER DEFAULT (unixepoch()),
     updated_at created_at INTEGER DEFAULT (unixepoch()),
     deleted_at TEXT

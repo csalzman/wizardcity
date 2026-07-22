@@ -13,19 +13,7 @@
     </h2>
     <div data-text="$modalEditing"></div>
     <form id="edit-cell-form">
-      <div>
-        <label for="color"
-          >What color is this place? Currently it is
-          <span
-            data-text="
-            $cellSelected &&
-            'color' in $cellSelected ? $cellSelected.color : 'no color'
-          "
-          ></span
-        ></label>
-        <br />
-        <input name="color" id="color" />
-      </div>
+      <!-- TODO: add region -->
       <div>
         <label for="description">Describe this place</label> <br />
         <input name="description" id="description" />

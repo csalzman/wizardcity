@@ -6,7 +6,7 @@ const cellsRoutes = express.Router();
 cellsRoutes.post("/cell/:cell_id", async (req: any, res: any) => {
   const cellId = req.params.cell_id;
 
-  const { color, map_link, region, nature, description } = req.body;
+  const { map_link, nature, description } = req.body;
 
   res.writeHead(200, {
     "Content-Type": "text/event-stream",
@@ -17,7 +17,6 @@ cellsRoutes.post("/cell/:cell_id", async (req: any, res: any) => {
   const stmt = await db.prepare(`
     UPDATE cells 
     SET 
-      color = ?, 
       map_link = ?, 
       nature = ?,
       description = ?
@@ -25,7 +24,7 @@ cellsRoutes.post("/cell/:cell_id", async (req: any, res: any) => {
     RETURNING *
   `);
 
-  const cell = await stmt.get([color, map_link, nature, description, cellId]);
+  const cell = await stmt.get([map_link, nature, description, cellId]);
 
   // TODO: this and the SSE write below it are nonsense and needs to be pulled into it's own function for reuse
   const htmlSnippet: any = await new Promise((resolve, reject) => {
