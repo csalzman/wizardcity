@@ -1,0 +1,41 @@
+<!-- holds our global data-signals -->
+<div
+  data-signals="{isRegionOpen: false}"
+  id="cell-modal"
+  data-show="$isRegionOpen"
+  style="display: none"
+  class="modal"
+>
+  <div data-signals:selected="[]"></div>
+  <div
+    data-effect="if ($isRegionOpen === false && $selected.length > 0) { $selected = []; }"
+  ></div>
+  <div class="modal-content">
+    <h2>WIZARD, WHAT REGION SHALL YOU MAKE</h2>
+    <form id="edit-region-form">
+      <div>
+        <label for="region_name">What is this region's name?</label> <br />
+        <input name="region_name" id="region_name" />
+      </div>
+      <div>
+        <label for="color">What color is this region?</label> <br />
+        <input name="color" id="color" type="color" />
+      </div>
+      <!-- TODO: this is not sending selected -->
+      <input name="selected" id="selected" type="hidden" data-bind:$selected />
+
+      <button
+        data-on:click="
+          @post(`../spellbook/region/`, {contentType: 'form'});
+          $selected=[];
+        "
+      >
+        UPDATE
+      </button>
+
+      <button data-on:click="$selected=[]">Clear Selected</button>
+
+      <p>Currently selected: <span data-text="$selected"></span></p>
+    </form>
+  </div>
+</div>

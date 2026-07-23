@@ -2,5 +2,12 @@
   WAND IS IN <span data-text="$wandMode"></span> MODE
   <button data-on:click="$wandMode = 'VIEW'">VIEW Mode</button>
   <button data-on:click="$wandMode = 'EDIT'">EDIT Mode</button>
-  <button data-on:click="$wandMode = 'REGION'">REGION Mode</button>
+  <button
+    data-on:click="
+    $wandMode = 'REGION';
+    $isRegionOpen = true;
+   "
+  >
+    REGION Mode
+  </button>
 </div>
