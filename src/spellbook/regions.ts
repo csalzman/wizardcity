@@ -4,8 +4,6 @@ const regionsRoutes = express.Router();
 
 // Update a cell
 regionsRoutes.post("/region/", async (req: any, res: any) => {
-  const { color, cells, region_name } = req.body;
-
   console.log(req.body);
 
   res.writeHead(200, {

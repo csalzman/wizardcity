@@ -6,36 +6,45 @@
   style="display: none"
   class="modal"
 >
-  <div data-signals:selected="[]"></div>
+  <div data-signals="{boo: 'asdf'}"></div>
   <div
     data-effect="if ($isRegionOpen === false && $selected.length > 0) { $selected = []; }"
   ></div>
   <div class="modal-content">
     <h2>WIZARD, WHAT REGION SHALL YOU MAKE</h2>
     <form id="edit-region-form">
-      <div>
-        <label for="region_name">What is this region's name?</label> <br />
-        <input name="region_name" id="region_name" />
-      </div>
-      <div>
-        <label for="color">What color is this region?</label> <br />
-        <input name="color" id="color" type="color" />
-      </div>
-      <!-- TODO: this is not sending selected -->
-      <input name="selected" id="selected" type="hidden" data-bind:$selected />
+      <div data-signals:selected="[]">
+        <div>
+          <label for="region_name">What is this region's name?</label> <br />
+          <input name="region_name" id="region_name" />
+        </div>
+        <div>
+          <label for="color">What color is this region?</label> <br />
+          <input name="color" id="color" type="color" />
+        </div>
+        <!-- TODO: this is not sending selected -->
+        <input
+          name="selected"
+          id="selected"
+          data-computed:selstring="$selected.join(', ')"
+          data-bind:selstring
+        />
 
-      <button
-        data-on:click="
+        <button
+          data-on:click="
           @post(`../spellbook/region/`, {contentType: 'form'});
           $selected=[];
         "
-      >
-        UPDATE
-      </button>
+          data-indicator:_fetching
+          data-attr:disabled="$_fetching"
+        >
+          UPDATE
+        </button>
 
-      <button data-on:click="$selected=[]">Clear Selected</button>
+        <button data-on:click="$selected=[]">Clear Selected</button>
 
-      <p>Currently selected: <span data-text="$selected"></span></p>
+        <p>Currently selected: <span data-text="$selected"></span></p>
+      </div>
     </form>
   </div>
 </div>
