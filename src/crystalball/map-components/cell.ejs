@@ -1,9 +1,25 @@
 <div
+  data-signals="{
+    selected<%= cell.id %>: false
+  }"
   data-on:click="
-  $cellSelected = <%= JSON.stringify(cell) %>;
-  $isOpenEdit = $editMode ? true : false;
-  $isViewOpen = $editMode ? false : true; 
-   "
+    // Handle if cell is selected or not
+    $selected<%= cell.id %> = !$selected<%= cell.id %>;
+    // Set if cell is selected for editing
+    $cellSelected = <%= JSON.stringify(cell) %>;
+    // TODO: move these out to be closer to wand
+    $isEditOpen = $wandMode === 'EDIT';
+    $isViewOpen = $wandMode === 'VIEW';
+
+    // Find index to see if it's selected or not
+    let isSelected = $selected.indexOf(<%= cell.id %>);
+    // Not selected, add it. Is selected remove it.
+    if ($isRegionOpen && isSelected < 0) { 
+      $selected.push(<%= cell.id %>);
+    } else {
+      $selected.splice(isSelected, 1);
+    }
+  "
   id="<%= cell.id %>"
   style="
     top: <%= cell.y * cellSize %>px;
@@ -12,6 +28,7 @@
     height: <%=cellSize %>px;
     background-color: <%= cell.color %>;
   "
+  data-class:selected="$selected.indexOf(<%= cell.id %>) !== -1"
   class="cell"
 >
   <%= cell.id %>

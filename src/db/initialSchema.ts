@@ -68,8 +68,8 @@ CREATE TABLE IF NOT EXISTS items (
 
 CREATE TABLE IF NOT EXISTS regions (
     id INTEGER PRIMARY KEY,
-    region_name TEXT NOT NULL UNIQUE,
-    color TEXT NOT NULL UNIQUE,
+    region_name TEXT NOT NULL,
+    color TEXT NOT NULL,
     description TEXT,
     created_at created_at INTEGER DEFAULT (unixepoch()),
     updated_at created_at INTEGER DEFAULT (unixepoch()),

@@ -28,9 +28,11 @@ app.use(express.urlencoded({ extended: true }));
 import wizardsRoutes from "./spellbook/wizards";
 import mapsRoutes from "./spellbook/maps";
 import cellsRoutes from "./spellbook/cells";
+import regionsRoutes from "./spellbook/regions";
 app.use("/spellbook", wizardsRoutes);
 app.use("/spellbook", mapsRoutes);
 app.use("/spellbook", cellsRoutes);
+app.use("/spellbook", regionsRoutes);
 
 // Defining our frontend routes
 // Homepage

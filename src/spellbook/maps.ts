@@ -27,11 +27,29 @@ mapsRoutes.get("/maps/:id", async (req: any, res: any) => {
   }
 
   // Get map cells
-  const cellStmt = await db.prepare("SELECT * FROM cells WHERE map_id = ?");
-  const cells = await cellStmt.all(map?.id);
+  const cellWithRegionStmt = await db.prepare(
+    `SELECT 
+      cells.id,
+      cells.map_id,
+      cells.x,
+      cells.y,
+      cells.map_link,
+      cells.region,
+      cells.nature,
+      cells.description,
+      cells.created_at,
+      cells.updated_at,
+      cells.deleted_at,
+      regions.color,
+      regions.region_name
+    FROM cells 
+    LEFT JOIN regions ON cells.region = regions.id 
+    WHERE map_id = ?`,
+  );
+  const cellswithRegions = await cellWithRegionStmt.all(map?.id);
 
   // TODO: this renders the cell.ejs file. This needs to loop through anyof the cells and fill in details about the cells
-  res.render("map-components/map", { cells: cells });
+  res.render("map-components/map", { cells: cellswithRegions });
 });
 
 // Create a new map

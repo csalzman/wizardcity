@@ -1,8 +1,8 @@
 <!-- holds our global data-signals -->
 <div
-  data-signals="{isOpenEdit: false}"
+  data-signals="{isEditOpen: false}"
   id="cell-modal"
-  data-show="$isOpenEdit"
+  data-show="$isEditOpen"
   style="display: none"
   class="modal"
 >
@@ -47,7 +47,7 @@
       <button
         data-on:click="
           @post(`../spellbook/cell/${$cellSelected.id}`, {contentType: 'form'});
-          $isOpenEdit = false;
+          $isEditOpen = false;
         "
       >
         UPDATE
