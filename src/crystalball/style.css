@@ -32,6 +32,11 @@ html {
   border: 1px solid black;
 }
 
+#map .homepage-map {
+  height: 1000px;
+  width: 1000px;
+}
+
 .cell {
   position: absolute;
   border: 1px black solid;

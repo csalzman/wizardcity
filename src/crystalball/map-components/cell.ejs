@@ -19,6 +19,11 @@
     } else {
       $selected.splice(isSelected, 1);
     }
+
+    // Make sure side-bar is updated
+    if($isViewOpen) {
+      @get(`/spellbook/cell-sidebar/${$cellSelected.id}`, { filterSignals: {include: /^cellSelected\./} });
+    } 
   "
   id="<%= cell.id %>"
   style="

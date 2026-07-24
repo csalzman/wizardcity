@@ -7,20 +7,7 @@
   class="modal"
 >
   <div class="modal-content">
-    <h2>
-      WIZARD, HERE IS WHAT YOU SEEK
-      <span data-text="$cellSelected.id"></span>
-    </h2>
-    <div>
-      <span
-        data-text="($cellSelected && 'description' in $cellSelected) ? $cellSelected.description : 'No description' || 'No Description'"
-      ></span>
-      <span
-        data-text="($cellSelected && 'nature' in $cellSelected) ? $cellSelected.nature : 'No nature'"
-      ></span>
-      <span
-        data-text="($cellSelected && 'region' in $cellSelected) ? $cellSelected.region : 'No region'"
-      ></span>
-    </div>
+    <h2>WIZARD, HERE IS WHAT YOU SEEK</h2>
+    <div id="cell-sidebar"></div>
   </div>
 </div>
