@@ -4,48 +4,78 @@ const regionsRoutes = express.Router();
 
 // Update a cell
 regionsRoutes.post("/region/", async (req: any, res: any) => {
-  console.log(req.body);
+  const { region_name, color, description, selected } = req.body;
 
   res.writeHead(200, {
     "Content-Type": "text/event-stream",
     "Cache-Control": "no-cache",
   });
 
-  // // TODO: any additional flags here?
-  // const stmt = await db.prepare(`
-  //   UPDATE cells
-  //   SET
-  //     map_link = ?,
-  //     nature = ?,
-  //     description = ?
-  //   WHERE id = (?)
-  //   RETURNING *
-  // `);
+  // Create Region
+  const stmt = await db.prepare(`
+    INSERT INTO regions (region_name, color, description)
+    VALUES (?, ?, ?)
+    RETURNING *;
+  `);
+  const region = await stmt.get([region_name, color, description]);
 
-  // const cell = await stmt.get([map_link, nature, description, cellId]);
+  // Update cells
+  const placeholders = selected.split(", ").map(() => "?");
+  const cellUpdateStmt = await db.prepare(`
+    UPDATE cells 
+    SET 
+      region = ?
+    WHERE id IN (${placeholders}) 
+    RETURNING *
+    `);
+  const cellsUpdated = await cellUpdateStmt.all([
+    region.id,
+    ...selected.split(", "),
+  ]);
 
-  // // TODO: this and the SSE write below it are nonsense and needs to be pulled into it's own function for reuse
-  // const htmlSnippet: any = await new Promise((resolve, reject) => {
-  //   res.render(
-  //     "../crystalball/map-components/cell",
-  //     {
-  //       cell: cell,
-  //       cellSize: 50,
-  //     },
-  //     (err: any, html: any) => {
-  //       if (err) reject(err);
-  //       else resolve(html);
-  //     },
-  //   );
-  // });
+  console.log("cellsUpdated", typeof cellsUpdated, cellsUpdated);
 
-  // res.write(
-  //   `event: datastar-patch-elements\ndata: elements ${htmlSnippet.replace(/\n/g, "")}\n\n`,
-  // );
+  // Get cells with regions
+  const getCells = await db.prepare(
+    `SELECT 
+      cells.id,
+      cells.map_id,
+      cells.x,
+      cells.y,
+      cells.map_link,
+      cells.region,
+      cells.nature,
+      cells.description,
+      cells.created_at,
+      cells.updated_at,
+      cells.deleted_at,
+      regions.color,
+      regions.region_name
+    FROM cells 
+    LEFT JOIN regions ON cells.region = regions.id  
+    WHERE cells.id IN (${placeholders})`,
+  );
 
-  // res.write(
-  //   `event: datastar-patch-elements\ndata: elements <div id="map-messages">Clicked: ${req.params.cell_id}</div>\n\n`,
-  // );
+  const cells = await getCells.all([...selected.split(", ")]);
+
+  for (let i = 0; i < cells.length; i++) {
+    const htmlSnippet: any = await new Promise((resolve, reject) => {
+      res.render(
+        "../crystalball/map-components/cell",
+        {
+          cell: cells[i],
+          cellSize: 50,
+        },
+        (err: any, html: any) => {
+          if (err) reject(err);
+          else resolve(html);
+        },
+      );
+    });
+    res.write(
+      `event: datastar-patch-elements\ndata: elements ${htmlSnippet.replace(/\n/g, "")}\n\n`,
+    );
+  }
 
   res.end();
 });

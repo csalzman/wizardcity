@@ -19,6 +19,11 @@
           <input name="region_name" id="region_name" />
         </div>
         <div>
+          <label for="description">What is this region's description?</label>
+          <br />
+          <input name="description" id="description" />
+        </div>
+        <div>
           <label for="color">What color is this region?</label> <br />
           <input name="color" id="color" type="color" />
         </div>
@@ -28,6 +33,7 @@
           id="selected"
           data-computed:selstring="$selected.join(', ')"
           data-bind:selstring
+          type="hidden"
         />
 
         <button
@@ -42,8 +48,6 @@
         </button>
 
         <button data-on:click="$selected=[]">Clear Selected</button>
-
-        <p>Currently selected: <span data-text="$selected"></span></p>
       </div>
     </form>
   </div>
