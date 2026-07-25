@@ -1,30 +1,31 @@
 <!-- holds our global data-signals -->
 <div
-  data-signals="{isRegionOpen: false}"
+  data-signals="{isLocationOpen: false}"
   id="cell-modal"
-  data-show="$isRegionOpen"
+  data-show="$isLocationOpen"
   style="display: none"
   class="modal"
 >
   <div data-signals="{boo: 'asdf'}"></div>
   <div
-    data-effect="if ($isRegionOpen === false && $selected.length > 0) { $selected = []; }"
+    data-effect="if ($isLocationOpen === false && $selected.length > 0) { $selected = []; }"
   ></div>
   <div class="modal-content">
     <h2>WIZARD, WHAT REGION SHALL YOU MAKE</h2>
-    <form id="edit-region-form">
+    <form id="edit-location-form">
       <div data-signals:selected="[]">
         <div>
-          <label for="location_name">What is this region's name?</label> <br />
+          <label for="location_name">What is this location's name?</label>
+          <br />
           <input name="location_name" id="location_name" />
         </div>
         <div>
-          <label for="description">What is this region's description?</label>
+          <label for="description">What is this location's description?</label>
           <br />
           <input name="description" id="description" />
         </div>
         <div>
-          <label for="color">What color is this region?</label> <br />
+          <label for="color">What color is this location?</label> <br />
           <input name="color" id="color" type="color" />
         </div>
         <!-- TODO: this is not sending selected -->
@@ -38,7 +39,7 @@
 
         <button
           data-on:click="
-          @post(`../spellbook/region/`, {contentType: 'form'});
+          @post(`../spellbook/location/`, {contentType: 'form'});
           $selected=[];
         "
           data-indicator:_fetching

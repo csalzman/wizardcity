@@ -14,7 +14,7 @@
     // Find index to see if it's selected or not
     let isSelected = $selected.indexOf(<%= cell.id %>);
     // Not selected, add it. Is selected remove it.
-    if ($isRegionOpen && isSelected < 0) { 
+    if ($isLocationOpen && isSelected < 0) { 
       $selected.push(<%= cell.id %>);
     } else {
       $selected.splice(isSelected, 1);

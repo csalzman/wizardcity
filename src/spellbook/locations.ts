@@ -3,7 +3,7 @@ import db from "../db/databaseconnect";
 const locationsRoutes = express.Router();
 
 // Update a cell
-locationsRoutes.post("/region/", async (req: any, res: any) => {
+locationsRoutes.post("/location/", async (req: any, res: any) => {
   const { location_name, color, description, selected } = req.body;
 
   res.writeHead(200, {
@@ -11,25 +11,25 @@ locationsRoutes.post("/region/", async (req: any, res: any) => {
     "Cache-Control": "no-cache",
   });
 
-  // Create Region
+  // Create Location
   const stmt = await db.prepare(`
     INSERT INTO locations (location_name, color, description)
     VALUES (?, ?, ?)
     RETURNING *;
   `);
-  const region = await stmt.get([location_name, color, description]);
+  const location = await stmt.get([location_name, color, description]);
 
   // Update cells
   const placeholders = selected.split(", ").map(() => "?");
   const cellUpdateStmt = await db.prepare(`
     UPDATE cells 
     SET 
-      region = ?
+      location = ?
     WHERE id IN (${placeholders}) 
     RETURNING *
     `);
   const cellsUpdated = await cellUpdateStmt.all([
-    region.id,
+    location.id,
     ...selected.split(", "),
   ]);
 
@@ -43,8 +43,8 @@ locationsRoutes.post("/region/", async (req: any, res: any) => {
       cells.x,
       cells.y,
       cells.map_link,
-      cells.region,
-      cells.nature,
+      cells.location,
+      cells.structure_image,
       cells.description,
       cells.created_at,
       cells.updated_at,
@@ -52,7 +52,7 @@ locationsRoutes.post("/region/", async (req: any, res: any) => {
       locations.color,
       locations.location_name
     FROM cells 
-    LEFT JOIN locations ON cells.region = locations.id  
+    LEFT JOIN locations ON cells.location = locations.id  
     WHERE cells.id IN (${placeholders})`,
   );
 

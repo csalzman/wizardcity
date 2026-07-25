@@ -28,11 +28,11 @@ mapsRoutes.get("/maps/:id", async (req: any, res: any) => {
   }
 
   // Get map cells
-  const cellWithRegionStmt = await db.prepare(cellsForMapWithEverythingStmt);
-  const cellswithRegions = await cellWithRegionStmt.all(map?.id);
+  const cellWithLocationStmt = await db.prepare(cellsForMapWithEverythingStmt);
+  const cellswithLocations = await cellWithLocationStmt.all(map?.id);
 
   // TODO: this renders the cell.ejs file. This needs to loop through anyof the cells and fill in details about the cells
-  res.render("map-components/map", { cells: cellswithRegions });
+  res.render("map-components/map", { cells: cellswithLocations });
 });
 
 // Create a new map

@@ -4,7 +4,7 @@ export const cellWithEverything = `SELECT
     cells.x,
     cells.y,
     cells.map_link,
-    cells.region,
+    cells.location,
     cells.structure_image,
     cells.description,
     cells.created_at,
@@ -14,7 +14,7 @@ export const cellWithEverything = `SELECT
     locations.location_name,
     locations.description
 FROM cells 
-LEFT JOIN locations ON cells.region = locations.id
+LEFT JOIN locations ON cells.location = locations.id
 WHERE cells.id = ?`;
 
 export const cellsForMapWithEverythingStmt = `SELECT 
@@ -23,7 +23,7 @@ export const cellsForMapWithEverythingStmt = `SELECT
     cells.x,
     cells.y,
     cells.map_link,
-    cells.region,
+    cells.location,
     cells.structure_image,
     cells.description,
     cells.created_at,
@@ -33,5 +33,5 @@ export const cellsForMapWithEverythingStmt = `SELECT
     locations.location_name,
     locations.description
 FROM cells 
-LEFT JOIN locations ON cells.region = locations.id
+LEFT JOIN locations ON cells.location = locations.id
 WHERE map_id = ?`;

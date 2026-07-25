@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS cells (
     x INTEGER NOT NULL,
     y INTEGER NOT NULL,
     map_link TEXT,
-    region INTEGER,
+    location INTEGER,
     structure_image TEXT,
     description TEXT,
     created_at created_at INTEGER DEFAULT (unixepoch()),
