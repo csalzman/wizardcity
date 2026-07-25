@@ -1,0 +1,8 @@
+<div class="structure-radio" data-signal:selectedStructure>
+    <% images.forEach(function(image) { %>
+        <label data-on:click="$selectedStructure = '<%= image %>'">
+            <input type="radio" name="structure" value="<%= image %>" />
+            <img src="../images/<%= image %>.png" />
+        </label>
+    <% }); %>
+</div>

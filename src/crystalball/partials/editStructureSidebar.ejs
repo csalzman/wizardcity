@@ -1,0 +1,15 @@
+<!-- holds our global data-signals -->
+<div
+  data-signals="{isStructureOpen: false}"
+  id="cell-modal"
+  data-show="$isStructureOpen"
+  style="display: none"
+  class="modal"
+>
+  <div class="modal-content">
+    <h2>WIZARD, WHAT BUILDING SHALL YOU MAKE</h2>
+    <!-- Select structure image -->
+    <%- include('./structureRadio', {images: ['house', 'cave', 'orb', 'tree']})%>
+  </div>
+  <span data-text="$selectedStructure"></span>
+</div>

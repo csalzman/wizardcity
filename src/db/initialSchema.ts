@@ -35,9 +35,9 @@ CREATE TABLE IF NOT EXISTS cells (
     UNIQUE(map_id, x, y) ON CONFLICT IGNORE
 );
 
-CREATE TABLE IF NOT EXISTS buildings (
+CREATE TABLE IF NOT EXISTS structures (
     id INTEGER PRIMARY KEY,
-    cell_id INTEGER,
+    cell_id INTEGER UNIQUE,
     type TEXT,
     created_at created_at INTEGER DEFAULT (unixepoch()),
     updated_at created_at INTEGER DEFAULT (unixepoch()),

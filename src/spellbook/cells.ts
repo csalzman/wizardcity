@@ -1,7 +1,7 @@
 import express from "express";
 import db from "../db/databaseconnect";
 const cellsRoutes = express.Router();
-import { cellsWithRegionStmt } from "./statements";
+import { cellWithEverything } from "./statements";
 
 // Update a cell
 cellsRoutes.post("/cell/:cell_id", async (req: any, res: any) => {
@@ -57,7 +57,7 @@ cellsRoutes.post("/cell/:cell_id", async (req: any, res: any) => {
 cellsRoutes.get("/cell-sidebar/:cell_id", async (req: any, res: any) => {
   // Get cell
   const cellId = req.params.cell_id;
-  const getCellStmt = await db.prepare(cellsWithRegionStmt);
+  const getCellStmt = await db.prepare(cellWithEverything);
   const cell = await getCellStmt.get([cellId]);
 
   // If no map found return early
