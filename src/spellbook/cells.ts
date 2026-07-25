@@ -33,7 +33,6 @@ cellsRoutes.post("/cell/:cell_id", async (req: any, res: any) => {
       "../crystalball/map-components/cell",
       {
         cell: cell,
-        cellSize: 50,
       },
       (err: any, html: any) => {
         if (err) reject(err);
