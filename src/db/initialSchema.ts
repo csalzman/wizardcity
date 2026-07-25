@@ -26,22 +26,13 @@ CREATE TABLE IF NOT EXISTS cells (
     y INTEGER NOT NULL,
     map_link TEXT,
     region INTEGER,
-    nature TEXT,
+    structure_image TEXT,
     description TEXT,
     created_at created_at INTEGER DEFAULT (unixepoch()),
     updated_at created_at INTEGER DEFAULT (unixepoch()),
     deleted_at TEXT,
     -- TODO: should this be replace instead?
     UNIQUE(map_id, x, y) ON CONFLICT IGNORE
-);
-
-CREATE TABLE IF NOT EXISTS structures (
-    id INTEGER PRIMARY KEY,
-    cell_id INTEGER UNIQUE,
-    type TEXT,
-    created_at created_at INTEGER DEFAULT (unixepoch()),
-    updated_at created_at INTEGER DEFAULT (unixepoch()),
-    deleted_at TEXT
 );
 
 CREATE TABLE IF NOT EXISTS npws (
@@ -66,9 +57,9 @@ CREATE TABLE IF NOT EXISTS items (
     deleted_at TEXT
 );
 
-CREATE TABLE IF NOT EXISTS regions (
+CREATE TABLE IF NOT EXISTS locations (
     id INTEGER PRIMARY KEY,
-    region_name TEXT NOT NULL,
+    location_name TEXT NOT NULL,
     color TEXT NOT NULL,
     description TEXT,
     created_at created_at INTEGER DEFAULT (unixepoch()),

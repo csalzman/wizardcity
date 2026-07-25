@@ -4,24 +4,21 @@ const structuresRoutes = express.Router();
 
 import { cellWithEverything } from "./statements";
 
-// Update a cell
+// Update a structure
 structuresRoutes.post("/structure/", async (req: any, res: any) => {
-  const { cell_id, structure } = req.body;
+  const { cell_id, structure_image } = req.body;
 
-  if (!structure) res.end();
+  if (!structure_image) res.end();
 
   // Upsert Structure
   const structureStmt = await db.prepare(`
-    INSERT INTO structures (cell_id, type)
-    VALUES (?, ?)
-    ON CONFLICT (cell_id)
-    DO UPDATE SET 
-      cell_id = excluded.cell_id,
-      type = excluded.type
-      RETURNING *;
+    UPDATE cells
+    SET structure_image = ?
+    WHERE id = ?
+    RETURNING *;
   `);
 
-  const b = await structureStmt.get([cell_id, structure]);
+  const b = await structureStmt.get([structure_image, cell_id]);
 
   // Get cell
   const getCellStmt = await db.prepare(cellWithEverything);

@@ -1,10 +1,10 @@
 import express from "express";
 import db from "../db/databaseconnect";
-const regionsRoutes = express.Router();
+const locationsRoutes = express.Router();
 
 // Update a cell
-regionsRoutes.post("/region/", async (req: any, res: any) => {
-  const { region_name, color, description, selected } = req.body;
+locationsRoutes.post("/region/", async (req: any, res: any) => {
+  const { location_name, color, description, selected } = req.body;
 
   res.writeHead(200, {
     "Content-Type": "text/event-stream",
@@ -13,11 +13,11 @@ regionsRoutes.post("/region/", async (req: any, res: any) => {
 
   // Create Region
   const stmt = await db.prepare(`
-    INSERT INTO regions (region_name, color, description)
+    INSERT INTO locations (location_name, color, description)
     VALUES (?, ?, ?)
     RETURNING *;
   `);
-  const region = await stmt.get([region_name, color, description]);
+  const region = await stmt.get([location_name, color, description]);
 
   // Update cells
   const placeholders = selected.split(", ").map(() => "?");
@@ -35,7 +35,7 @@ regionsRoutes.post("/region/", async (req: any, res: any) => {
 
   console.log("cellsUpdated", typeof cellsUpdated, cellsUpdated);
 
-  // Get cells with regions
+  // Get cells with locations
   const getCells = await db.prepare(
     `SELECT 
       cells.id,
@@ -49,10 +49,10 @@ regionsRoutes.post("/region/", async (req: any, res: any) => {
       cells.created_at,
       cells.updated_at,
       cells.deleted_at,
-      regions.color,
-      regions.region_name
+      locations.color,
+      locations.location_name
     FROM cells 
-    LEFT JOIN regions ON cells.region = regions.id  
+    LEFT JOIN locations ON cells.region = locations.id  
     WHERE cells.id IN (${placeholders})`,
   );
 
@@ -79,4 +79,4 @@ regionsRoutes.post("/region/", async (req: any, res: any) => {
   res.end();
 });
 
-export default regionsRoutes;
+export default locationsRoutes;
