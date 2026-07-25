@@ -1,6 +1,6 @@
 <!-- Map component used to generate map -->
 <div id="map">
   <% cells.forEach(function(cell) { %>
-        <%- include('./cell', {cell: cell, cellSize: 50}) %>
+        <%- include('./cell', {cell: cell}) %>
     <% }); %>
 </div>

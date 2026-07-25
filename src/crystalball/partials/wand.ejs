@@ -19,3 +19,25 @@
     STRUCTURE Mode
   </button>
 </div>
+<button
+  data-on:click="
+  const root = document.documentElement;
+  
+  const gridSize = Number(getComputedStyle(root).getPropertyValue('--grid-size'));
+
+  document.documentElement.style.setProperty('--grid-size', gridSize + 10);
+  "
+>
+  ZOOM IN
+</button>
+<button
+  data-on:click="
+  const root = document.documentElement;
+  
+  const gridSize = Number(getComputedStyle(root).getPropertyValue('--grid-size'));
+
+  document.documentElement.style.setProperty('--grid-size', Math.max(gridSize - 10, 10));
+  "
+>
+  ZOOM OUT
+</button>

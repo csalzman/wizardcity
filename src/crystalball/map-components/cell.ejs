@@ -37,10 +37,6 @@
   "
   id="<%= cell.id %>"
   style='
-    top: <%= cell.y * cellSize %>px;
-    left: <%= cell.x * cellSize %>px;
-    width: <%=cellSize %>px;
-    height: <%=cellSize %>px;
     background-color: <%= cell.color %>;
     <% if (cell.structure) { %>
       background-image: url("../images/<%= cell.structure %>.png");

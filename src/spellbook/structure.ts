@@ -34,14 +34,10 @@ structuresRoutes.post("/structure/", async (req: any, res: any) => {
   }
 
   const htmlSnippet: any = await new Promise((resolve, reject) => {
-    res.render(
-      "map-components/cell",
-      { cell, cellSize: 50 },
-      (err: any, html: any) => {
-        if (err) reject(err);
-        else resolve(html);
-      },
-    );
+    res.render("map-components/cell", { cell }, (err: any, html: any) => {
+      if (err) reject(err);
+      else resolve(html);
+    });
   });
 
   res.write(

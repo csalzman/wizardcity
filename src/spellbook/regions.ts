@@ -64,7 +64,6 @@ regionsRoutes.post("/region/", async (req: any, res: any) => {
         "../crystalball/map-components/cell",
         {
           cell: cells[i],
-          cellSize: 50,
         },
         (err: any, html: any) => {
           if (err) reject(err);
