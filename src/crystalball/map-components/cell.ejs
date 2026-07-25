@@ -36,16 +36,22 @@
     }
   "
   id="<%= cell.id %>"
-  style="
+  style='
     top: <%= cell.y * cellSize %>px;
     left: <%= cell.x * cellSize %>px;
     width: <%=cellSize %>px;
     height: <%=cellSize %>px;
     background-color: <%= cell.color %>;
-    background-image: url(&quot;../images/<%= cell.structure %>.png&quot;);
-  "
+    <% if (cell.structure) { %>
+      background-image: url("../images/<%= cell.structure %>.png");
+    <% } %>
+  '
   data-class:selected="$selected.indexOf(<%= cell.id %>) !== -1"
   class="cell"
+  data-indicator:fetching<%= cell.id %>
+  data-attr:disabled="$fetching<%= cell.id %>"
 >
-  <%= cell.id %>
+  <div data-show="$fetching<%= cell.id %>">Loading...</div>
+  <div data-show="!$fetching<%= cell.id %>">  <%= cell.id %></div>
+
 </div>

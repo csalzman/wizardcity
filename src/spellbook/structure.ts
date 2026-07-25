@@ -2,14 +2,13 @@ import express from "express";
 import db from "../db/databaseconnect";
 const structuresRoutes = express.Router();
 
+import { cellWithEverything } from "./statements";
+
 // Update a cell
 structuresRoutes.post("/structure/", async (req: any, res: any) => {
   const { cell_id, structure } = req.body;
 
-  res.writeHead(200, {
-    "Content-Type": "text/event-stream",
-    "Cache-Control": "no-cache",
-  });
+  if (!structure) res.end();
 
   // Upsert Structure
   const structureStmt = await db.prepare(`
@@ -23,9 +22,31 @@ structuresRoutes.post("/structure/", async (req: any, res: any) => {
   `);
 
   const b = await structureStmt.get([cell_id, structure]);
-  console.log(b);
 
-  // Refetch cell
+  // Get cell
+  const getCellStmt = await db.prepare(cellWithEverything);
+  const cell = await getCellStmt.get([cell_id]);
+
+  // If no map found return early
+  if (!cell) {
+    res.send("<p>No Cell</p>");
+    return res.end();
+  }
+
+  const htmlSnippet: any = await new Promise((resolve, reject) => {
+    res.render(
+      "map-components/cell",
+      { cell, cellSize: 50 },
+      (err: any, html: any) => {
+        if (err) reject(err);
+        else resolve(html);
+      },
+    );
+  });
+
+  res.write(
+    `event: datastar-patch-elements\ndata: elements ${htmlSnippet.replace(/\n/g, "")}\n\n`,
+  );
 
   res.end();
 });
