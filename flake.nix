@@ -29,7 +29,7 @@
 
           shellHook = ''
             if [ ! -f .env ]; then
-              echo "warning: no .env file — copy .env.example and set DB_URL / DB_AUTH" >&2
+              echo "warning: no .env file — copy .env.example and set variables" >&2
             fi
           '';
         };
