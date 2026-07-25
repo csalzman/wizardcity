@@ -30,7 +30,7 @@
       @post(`/spellbook/structure/`, { 
         payload: { 
           cell_id: <%= cell.id %>, 
-          structure: $selectedStructure 
+          structure_image: $selectedStructure 
         }
       });
     }
@@ -38,8 +38,8 @@
   id="<%= cell.id %>"
   style='
     background-color: <%= cell.color %>;
-    <% if (cell.structure) { %>
-      background-image: url("../images/<%= cell.structure %>.png");
+    <% if (cell.structure_image) { %>
+      background-image: url("../images/<%= cell.structure_image %>.png");
     <% } %>
   '
   data-class:selected="$selected.indexOf(<%= cell.id %>) !== -1"

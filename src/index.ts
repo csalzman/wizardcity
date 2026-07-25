@@ -43,12 +43,12 @@ app.use(requireLogin);
 import wizardsRoutes from "./spellbook/wizards";
 import mapsRoutes from "./spellbook/maps";
 import cellsRoutes from "./spellbook/cells";
-import regionsRoutes from "./spellbook/regions";
+import locationsRoutes from "./spellbook/locations";
 import structuresRoutes from "./spellbook/structure";
 app.use("/spellbook", wizardsRoutes);
 app.use("/spellbook", mapsRoutes);
 app.use("/spellbook", cellsRoutes);
-app.use("/spellbook", regionsRoutes);
+app.use("/spellbook", locationsRoutes);
 app.use("/spellbook", structuresRoutes);
 
 // Defining our frontend routes
