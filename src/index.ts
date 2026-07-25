@@ -9,8 +9,12 @@ seedDb();
 
 const app = express();
 
+const staticOptions = {
+  extensions: ["html"],
+};
+
 // Public assets only
-app.use(express.static("./src/public"));
+app.use(express.static("./src/public", staticOptions));
 
 app.set("views", "./src/crystalball");
 app.set("view engine", "ejs");
