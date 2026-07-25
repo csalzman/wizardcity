@@ -22,19 +22,36 @@
 
     // Make sure side-bar is updated
     if($isViewOpen) {
-      @get(`/spellbook/cell-sidebar/${$cellSelected.id}`, { filterSignals: {include: /^cellSelected\./} });
+      @get(`/spellbook/cell-sidebar/<%= cell.id %>`, { filterSignals: {include: /^cellSelected\./} });
     } 
+
+    // If structure is open we want to update the cell as it is clicked
+    if($isStructureOpen) {
+      @post(`/spellbook/structure/`, { 
+        payload: { 
+          cell_id: <%= cell.id %>, 
+          structure: $selectedStructure 
+        }
+      });
+    }
   "
   id="<%= cell.id %>"
-  style="
+  style='
     top: <%= cell.y * cellSize %>px;
     left: <%= cell.x * cellSize %>px;
     width: <%=cellSize %>px;
     height: <%=cellSize %>px;
     background-color: <%= cell.color %>;
-  "
+    <% if (cell.structure) { %>
+      background-image: url("../images/<%= cell.structure %>.png");
+    <% } %>
+  '
   data-class:selected="$selected.indexOf(<%= cell.id %>) !== -1"
   class="cell"
+  data-indicator:fetching<%= cell.id %>
+  data-attr:disabled="$fetching<%= cell.id %>"
 >
-  <%= cell.id %>
+  <div data-show="$fetching<%= cell.id %>">Loading...</div>
+  <div data-show="!$fetching<%= cell.id %>">  <%= cell.id %></div>
+
 </div>

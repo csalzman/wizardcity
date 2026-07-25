@@ -6,9 +6,9 @@ WIZARD! WELCOME TO THE CITY. WHAT MAPS WILL YOU MAKE?
 
 Wizard City is a shared map making system of interconnected maps. Every Wizard (user) will have their own map and then will have access to shared maps. They can also make more maps at will.
 
-Each cell can link to another cell in any other map: perhaps to the interior of a building. Or into a dungeon, or a multi-story tree fort. Or the astral plane.
+Each cell can link to another cell in any other map: perhaps to the interior of a structure. Or into a dungeon, or a multi-story tree fort. Or the astral plane.
 
-NPWs (non-player wizards) can exist on cells. So can magic items and buildings and secrets.
+NPWs (non-player wizards) can exist on cells. So can magic items and structures and secrets.
 
 ## Technomagic
 

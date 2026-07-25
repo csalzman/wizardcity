@@ -1,5 +1,6 @@
 import express from "express";
 import db from "../db/databaseconnect";
+import { cellsForMapWithEverythingStmt } from "./statements";
 
 const mapsRoutes = express.Router();
 
@@ -27,25 +28,7 @@ mapsRoutes.get("/maps/:id", async (req: any, res: any) => {
   }
 
   // Get map cells
-  const cellWithRegionStmt = await db.prepare(
-    `SELECT 
-      cells.id,
-      cells.map_id,
-      cells.x,
-      cells.y,
-      cells.map_link,
-      cells.region,
-      cells.nature,
-      cells.description,
-      cells.created_at,
-      cells.updated_at,
-      cells.deleted_at,
-      regions.color,
-      regions.region_name
-    FROM cells 
-    LEFT JOIN regions ON cells.region = regions.id 
-    WHERE map_id = ?`,
-  );
+  const cellWithRegionStmt = await db.prepare(cellsForMapWithEverythingStmt);
   const cellswithRegions = await cellWithRegionStmt.all(map?.id);
 
   // TODO: this renders the cell.ejs file. This needs to loop through anyof the cells and fill in details about the cells
