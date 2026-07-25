@@ -1,5 +1,5 @@
 import "dotenv/config";
-import express, { Request, Response } from "express";
+import express from "express";
 
 // Make sure db is setup
 import seedDb from "./db/databasesetup";
@@ -9,12 +9,8 @@ seedDb();
 
 const app = express();
 
-// TODO: not sure we need this anymore
-// Allow for serving static files without html at the end
-const staticOptions = {
-  extensions: ["html"],
-};
-app.use(express.static("./src/crystalball", staticOptions));
+// Public assets only
+app.use(express.static("./src/public"));
 
 app.set("views", "./src/crystalball");
 app.set("view engine", "ejs");
@@ -23,6 +19,21 @@ app.set("view engine", "ejs");
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
+
+// Auth middleware
+import cookieParser from "cookie-parser";
+app.use(cookieParser());
+
+import { attachUser, requireLogin } from "./tim/middleware";
+app.use(attachUser);
+
+// What is your favorite color?
+import timRoutes from "./tim/discord";
+app.use("/auth", timRoutes);
+
+// Everything below this line requires being logged in
+// If not the user is redirected to the login page
+app.use(requireLogin);
 
 // Spellbook/Backend routes
 import wizardsRoutes from "./spellbook/wizards";

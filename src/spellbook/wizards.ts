@@ -12,7 +12,6 @@ wizardRoutes.get("/wizards", async (req: any, res: any) => {
 });
 
 // Create a new wizard
-// TODO: this will need to require a password too
 wizardRoutes.post("/wizards", async (req: any, res: any) => {
   const stmt = await db.prepare(
     "INSERT INTO wizards (wizard_name, email, color) VALUES ('fooa', 'bara', 'baza')",

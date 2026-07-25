@@ -45,3 +45,7 @@ TODO: not sure if the permissions are getting reset every time this goes out. If
 ### Production Notes
 
 Production and dev db is the same right now. As this project moves forward these will become separate.
+
+### Authentication
+
+Authentication is performed via Discord and verifies that the user is a member of the RfT Discord. All pages are behind the login requirement, so landing nearly anywhere on the site (except login and some static assets like css files) redirects to login if the user is not authenticated.
