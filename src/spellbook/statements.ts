@@ -13,7 +13,7 @@ export const cellWithEverything = `SELECT
     locations.color,
     locations.location_name,
     locations.description,
-    GROUP_CONCAT(npws.wizard_name, ', ') as wizard_name
+    json_group_array(npws.wizard_name) as wizard_name
 FROM cells 
 LEFT JOIN locations ON cells.location = locations.id
 LEFT JOIN npws ON cells.id = npws.cell_id
@@ -36,7 +36,7 @@ export const cellsForMapWithEverythingStmt = `SELECT
     locations.color,
     locations.location_name,
     locations.description,
-    GROUP_CONCAT(npws.wizard_name, ', ') as wizard_name
+    json_group_array(npws.wizard_name) as wizard_name
 FROM cells 
 LEFT JOIN locations ON cells.location = locations.id
 LEFT JOIN npws ON cells.id = npws.cell_id
