@@ -9,9 +9,14 @@
     />
   </div>
   <div>
-    <label for="cell_id">Where does this wizard reside?</label>
+    <label for="cell_id">In which cell does this wizard reside?</label>
     <br />
-    <input name="cell_id" id="cell_id" value="<%= npw.cell_id%>" />
+    <input
+      name="cell_id"
+      id="cell_id"
+      value="<%= npw.cell_id%>"
+      type="number"
+    />
   </div>
 
   <div>
@@ -27,7 +32,7 @@
   <div>
     <label for="HP">What is this wizard's HP?</label>
     <br />
-    <input name="HP" id="HP" value="<%= npw.HP %>" />
+    <input name="HP" id="HP" value="<%= npw.HP %>" type="number" />
   </div>
 
   <div>
@@ -39,8 +44,9 @@
   <button
     data-on:click="
         @post(`../../spellbook/update-npw/`, {contentType: 'form'});
+        $_editWizardOpen<%= npw.id %> = false;
     "
   >
-    CREATE/UPDATE WIZARD
+    UPDATE WIZARD
   </button>
 </form>

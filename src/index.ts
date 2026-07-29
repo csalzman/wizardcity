@@ -86,7 +86,7 @@ app.get("/terraform", (req: any, res: any) => {
 // List of npws
 app.get("/npws", (req: any, res: any) => {
   res.render("npws", {
-    title: "npws",
+    title: "Non-Player Wizards",
   });
 });
 
