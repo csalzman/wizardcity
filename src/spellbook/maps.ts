@@ -35,6 +35,26 @@ mapsRoutes.get("/maps/:id", async (req: any, res: any) => {
   res.render("map-components/map", { cells: cellswithLocations });
 });
 
+// Get map information
+mapsRoutes.get("/map-columns/:id", async (req: any, res: any) => {
+  // Get map
+  const mapName = req.params.id;
+  const getMapStmt = await db.prepare(
+    "SELECT x_size, y_size FROM maps WHERE name = ?",
+  );
+  const map = await getMapStmt.get(mapName);
+
+  // If no map found return early
+  if (!map) {
+    res.write(
+      `event: datastar-patch-elements\ndata: elements <div id="map">Map Not Found</map>\n\n`,
+    );
+    return res.end();
+  }
+
+  res.json({ x_size: map.x_size, y_size: map.y_size });
+});
+
 // Create a new map
 mapsRoutes.post("/create-map", async (req: any, res: any) => {
   const { map_name, map_size } = req.body;
