@@ -12,10 +12,14 @@ export const cellWithEverything = `SELECT
     cells.deleted_at,
     locations.color,
     locations.location_name,
-    locations.description
+    locations.description,
+    GROUP_CONCAT(npws.wizard_name, ', ') as wizard_name
 FROM cells 
 LEFT JOIN locations ON cells.location = locations.id
-WHERE cells.id = ?`;
+LEFT JOIN npws ON cells.id = npws.cell_id
+WHERE cells.id = ?
+GROUP BY cells.id
+`;
 
 export const cellsForMapWithEverythingStmt = `SELECT 
     cells.id,
@@ -31,10 +35,13 @@ export const cellsForMapWithEverythingStmt = `SELECT
     cells.deleted_at,
     locations.color,
     locations.location_name,
-    locations.description
+    locations.description,
+    GROUP_CONCAT(npws.wizard_name, ', ') as wizard_name
 FROM cells 
 LEFT JOIN locations ON cells.location = locations.id
-WHERE map_id = ?`;
+LEFT JOIN npws ON cells.id = npws.cell_id
+WHERE map_id = ?
+GROUP BY cells.id`;
 
 export const npwsStmt = `SELECT * FROM npws;`;
 
