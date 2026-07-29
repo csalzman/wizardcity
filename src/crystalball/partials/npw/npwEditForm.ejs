@@ -1,0 +1,52 @@
+<form id="edit-wizard">
+  <h2>Edit <%= npw.wizard_name%></h2>
+  <div>
+    <input
+      name="wizard_name"
+      id="wizard_name"
+      value="<%= npw.wizard_name%>"
+      type="hidden"
+    />
+  </div>
+  <div>
+    <label for="cell_id">In which cell does this wizard reside?</label>
+    <br />
+    <input
+      name="cell_id"
+      id="cell_id"
+      value="<%= npw.cell_id%>"
+      type="number"
+    />
+  </div>
+
+  <div>
+    <label for="wizard_class">What is this wizard's class?</label>
+    <br />
+    <input
+      name="wizard_class"
+      id="wizard_class"
+      value="<%= npw.wizard_class %>"
+    />
+  </div>
+
+  <div>
+    <label for="HP">What is this wizard's HP?</label>
+    <br />
+    <input name="HP" id="HP" value="<%= npw.HP %>" type="number" />
+  </div>
+
+  <div>
+    <label for="facts">What are these wizard's facts?</label>
+    <br />
+    <textarea name="facts" id="facts"><%= npw.facts %></textarea>
+  </div>
+
+  <button
+    data-on:click="
+        @post(`../../spellbook/update-npw/`, {contentType: 'form'});
+        $_editWizardOpen<%= npw.id %> = false;
+    "
+  >
+    UPDATE WIZARD
+  </button>
+</form>

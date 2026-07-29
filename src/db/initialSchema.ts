@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS npws (
     id INTEGER PRIMARY KEY,
     wizard_name TEXT NOT NULL UNIQUE,
     cell_id INTEGER,
-    class TEXT,
+    wizard_class TEXT,
     HP INTEGER,
     facts TEXT,
     created_at created_at INTEGER DEFAULT (unixepoch()),
