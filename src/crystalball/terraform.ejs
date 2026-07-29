@@ -3,8 +3,23 @@
   <body>
     <%- include('partials/header') %>
     <form id="terraformform">
-      <label for="name">WIZARD. NAME YOUR MAP.</label
-      ><input name="name" id="name" />
+      <div>
+        <label for="map_name">WIZARD. NAME YOUR MAP.</label><br /><input
+          name="map_name"
+          id="map_name"
+        />
+      </div>
+      <div>
+        <label for="map_size">WIZARD. What size should your map be?</label
+        ><br /><input
+          name="map_size"
+          id="map_size"
+          type="number"
+          min="1"
+          max="100"
+          value="25"
+        />
+      </div>
       <button
         data-on:click="@post('spellbook/create-map', {contentType: 'form'})"
       >

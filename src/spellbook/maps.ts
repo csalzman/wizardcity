@@ -37,6 +37,8 @@ mapsRoutes.get("/maps/:id", async (req: any, res: any) => {
 
 // Create a new map
 mapsRoutes.post("/create-map", async (req: any, res: any) => {
+  const { map_name, map_size } = req.body;
+
   res.writeHead(200, {
     "Content-Type": "text/event-stream",
     "Cache-Control": "no-cache",
@@ -46,13 +48,20 @@ mapsRoutes.post("/create-map", async (req: any, res: any) => {
     `event: datastar-patch-signals\ndata: signals {terraformOutput: "creating" }\n\n`,
   );
 
+  if (map_size > 100 || map_size <= 0) {
+    res.write(
+      `event: datastar-patch-signals\ndata: signals {terraformOutput: "Map Size out of bounds!" }\n\n`,
+    );
+    res.end();
+  }
+
   // Create map
   let inserted: any;
   try {
     const mapStmt = await db.prepare(
       "INSERT INTO maps (name) VALUES (?) RETURNING *",
     );
-    inserted = await mapStmt.get([req.body.name]);
+    inserted = await mapStmt.get([map_name]);
   } catch {
     res.write(
       `event: datastar-patch-signals\ndata: signals {terraformOutput: "Name already taken" }\n\n`,
@@ -67,7 +76,7 @@ mapsRoutes.post("/create-map", async (req: any, res: any) => {
   // Generate cells
   const mapId = inserted?.id;
   const cellStmt = "INSERT INTO cells (map_id, x, y) VALUES";
-  const mapSize = 50;
+  const mapSize = map_size;
   const arr = [];
 
   let insertString = cellStmt;
