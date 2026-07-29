@@ -1,0 +1,17 @@
+<div class="npw-info" id="npwView<%= npw.id %>">
+  <ul>
+    <li>Name: <%= npw.wizard_name %></li>
+    <li>Cell: <%= npw.cell_id %></li>
+    <li>Class: <%= npw.class %></li>
+    <li>Current HP: <%= npw.HP %></li>
+    <li>Facts: <%= npw.facts %></li>
+  </ul>
+  <button
+    data-signal="{ _editWizardOpen<%= npw.id %>: false }"
+    data-on:click="$_editWizardOpen<%= npw.id %> = !$_editWizardOpen<%= npw.id %>"
+  >
+    <span data-text="$_editWizardOpen<%= npw.id %> ? 'Close Edit Wizard' : 'Edit Wizard'"></span>
+  </button>
+
+  <div data-show="$_editWizardOpen<%= npw.id %>" style="display: none"><%- include('./npwEditForm', {npw: npw})%></div>
+</div>

@@ -1,0 +1,21 @@
+<html>
+  <%- include('partials/head') %>
+  <body>
+    <%- include('partials/header') %>
+    <div data-init="@get('/spellbook/npws')" id="npws"></div>
+    <hr />
+    <div>
+      <button
+        data-signal="{createWizardOpen: false }"
+        data-on:click="$createWizardOpen = !$createWizardOpen"
+      >
+        Create New Wizard?
+      </button>
+
+      <div data-show="$createWizardOpen" style="display: none">
+        <%- include('./partials/npw/createNPWForm') %>
+      </div>
+    </div>
+    <%- include('partials/footer') %>
+  </body>
+</html>

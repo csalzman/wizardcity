@@ -45,11 +45,13 @@ import mapsRoutes from "./spellbook/maps";
 import cellsRoutes from "./spellbook/cells";
 import locationsRoutes from "./spellbook/locations";
 import structuresRoutes from "./spellbook/structure";
+import npwsRoutes from "./spellbook/npws";
 app.use("/spellbook", wizardsRoutes);
 app.use("/spellbook", mapsRoutes);
 app.use("/spellbook", cellsRoutes);
 app.use("/spellbook", locationsRoutes);
 app.use("/spellbook", structuresRoutes);
+app.use("/spellbook", npwsRoutes);
 
 // Defining our frontend routes
 // Homepage
@@ -81,10 +83,10 @@ app.get("/terraform", (req: any, res: any) => {
   });
 });
 
-// List of wizards
-app.get("/wizards", (req: any, res: any) => {
-  res.render("wizards", {
-    title: "Wizards",
+// List of npws
+app.get("/npws", (req: any, res: any) => {
+  res.render("npws", {
+    title: "npws",
   });
 });
 

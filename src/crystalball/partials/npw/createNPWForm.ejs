@@ -1,0 +1,39 @@
+<form id="create-wizard">
+  <h2>Create NPW</h2>
+  <div>
+    <label for="wizard_name">What is this wizard called?</label>
+    <br />
+    <input name="wizard_name" id="wizard_name" />
+  </div>
+  <div>
+    <label for="cell_id">Where does this wizard reside?</label>
+    <br />
+    <input name="cell_id" id="cell_id" />
+  </div>
+
+  <div>
+    <label for="wizard_class">What is this wizard's class?</label>
+    <br />
+    <input name="wizard_class" id="wizard_class" />
+  </div>
+
+  <div>
+    <label for="HP">What is this wizard's HP?</label>
+    <br />
+    <input name="HP" id="HP" />
+  </div>
+
+  <div>
+    <label for="facts">What are these wizard's facts?</label>
+    <br />
+    <textarea name="facts" id="facts"></textarea>
+  </div>
+
+  <button
+    data-on:click="
+        @post(`../../spellbook/create-npw/`, {contentType: 'form'});
+    "
+  >
+    CREATE/UPDATE WIZARD
+  </button>
+</form>
