@@ -35,8 +35,30 @@ mapsRoutes.get("/maps/:id", async (req: any, res: any) => {
   res.render("map-components/map", { cells: cellswithLocations });
 });
 
+// Get map information
+mapsRoutes.get("/map-columns/:id", async (req: any, res: any) => {
+  // Get map
+  const mapName = req.params.id;
+  const getMapStmt = await db.prepare(
+    "SELECT x_size, y_size FROM maps WHERE name = ?",
+  );
+  const map = await getMapStmt.get(mapName);
+
+  // If no map found return early
+  if (!map) {
+    res.write(
+      `event: datastar-patch-elements\ndata: elements <div id="map">Map Not Found</map>\n\n`,
+    );
+    return res.end();
+  }
+
+  res.json({ x_size: map.x_size, y_size: map.y_size });
+});
+
 // Create a new map
 mapsRoutes.post("/create-map", async (req: any, res: any) => {
+  const { map_name, map_size } = req.body;
+
   res.writeHead(200, {
     "Content-Type": "text/event-stream",
     "Cache-Control": "no-cache",
@@ -46,13 +68,20 @@ mapsRoutes.post("/create-map", async (req: any, res: any) => {
     `event: datastar-patch-signals\ndata: signals {terraformOutput: "creating" }\n\n`,
   );
 
+  if (map_size > 100 || map_size <= 0) {
+    res.write(
+      `event: datastar-patch-signals\ndata: signals {terraformOutput: "Map Size out of bounds!" }\n\n`,
+    );
+    res.end();
+  }
+
   // Create map
   let inserted: any;
   try {
     const mapStmt = await db.prepare(
-      "INSERT INTO maps (name) VALUES (?) RETURNING *",
+      "INSERT INTO maps (name, x_size, y_size) VALUES (?, ?, ?) RETURNING *",
     );
-    inserted = await mapStmt.get([req.body.name]);
+    inserted = await mapStmt.get([map_name, map_size, map_size]);
   } catch {
     res.write(
       `event: datastar-patch-signals\ndata: signals {terraformOutput: "Name already taken" }\n\n`,
@@ -67,7 +96,7 @@ mapsRoutes.post("/create-map", async (req: any, res: any) => {
   // Generate cells
   const mapId = inserted?.id;
   const cellStmt = "INSERT INTO cells (map_id, x, y) VALUES";
-  const mapSize = 50;
+  const mapSize = map_size;
   const arr = [];
 
   let insertString = cellStmt;
