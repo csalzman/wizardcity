@@ -35,6 +35,26 @@ mapsRoutes.get("/maps/:id", async (req: any, res: any) => {
   res.render("map-components/map", { cells: cellswithLocations });
 });
 
+// Get map information
+mapsRoutes.get("/map-columns/:id", async (req: any, res: any) => {
+  // Get map
+  const mapName = req.params.id;
+  const getMapStmt = await db.prepare(
+    "SELECT x_size, y_size FROM maps WHERE name = ?",
+  );
+  const map = await getMapStmt.get(mapName);
+
+  // If no map found return early
+  if (!map) {
+    res.write(
+      `event: datastar-patch-elements\ndata: elements <div id="map">Map Not Found</map>\n\n`,
+    );
+    return res.end();
+  }
+
+  res.json({ x_size: map.x_size, y_size: map.y_size });
+});
+
 // Create a new map
 mapsRoutes.post("/create-map", async (req: any, res: any) => {
   const { map_name, map_size } = req.body;
@@ -59,9 +79,9 @@ mapsRoutes.post("/create-map", async (req: any, res: any) => {
   let inserted: any;
   try {
     const mapStmt = await db.prepare(
-      "INSERT INTO maps (name) VALUES (?) RETURNING *",
+      "INSERT INTO maps (name, x_size, y_size) VALUES (?, ?, ?) RETURNING *",
     );
-    inserted = await mapStmt.get([map_name]);
+    inserted = await mapStmt.get([map_name, map_size, map_size]);
   } catch {
     res.write(
       `event: datastar-patch-signals\ndata: signals {terraformOutput: "Name already taken" }\n\n`,

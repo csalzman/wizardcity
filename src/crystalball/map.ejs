@@ -5,9 +5,17 @@
     <div id="map-messages">Map messages</div>
     <%- include('partials/wand') %>
     <div id="map-wrapper">
-      <div id="map" data-init="@get('/spellbook/maps/<%- title %>')">
+      <div
+        id="map"
+        data-init="
+          @get('/spellbook/maps/<%- title %>');
+          setMapSize();
+        "
+      >
         Loading initial state...
       </div>
+
+      <div data-text="$foo"></div>
       <div data-signals="{cellSelected: undefined}">
         <%- include('partials/editCellSideBar') %> <%-
         include('partials/viewCellSideBar') %> <%-
@@ -15,7 +23,18 @@
         include('partials/editStructureSidebar') %>
       </div>
     </div>
+    <div data-text="JSON.stringify($mapSize)"></div>
     <div data-text="JSON.stringify($cellSelected)"></div>
     <%- include('partials/footer') %>
   </body>
 </html>
+
+<script>
+  async function setMapSize(element, data) {
+    const mapSize = await fetch("/spellbook/map-columns/<%- title %>").then(
+      (res) => res.json(),
+    );
+
+    document.documentElement.style.setProperty("--map-columns", mapSize.x_size);
+  }
+</script>

@@ -14,6 +14,8 @@ CREATE TABLE IF NOT EXISTS wizards (
 CREATE TABLE IF NOT EXISTS maps (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL UNIQUE,
+    x_size INTEGER,
+    y_size INTEGER,
     created_at created_at INTEGER DEFAULT (unixepoch()),
     updated_at created_at INTEGER DEFAULT (unixepoch()),
     deleted_at TEXT
