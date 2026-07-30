@@ -1,0 +1,16 @@
+<div class="magic-item-info" id="magicItemView<%= magicItem.id %>">
+  <ul>
+    <li>Name: <%= magicItem.item_name %></li>
+    <li>Cell: <%= magicItem.cell_id %></li>
+    <li>Facts: <%= magicItem.facts %></li>
+    <li>Facts: <%= magicItem.rarity %></li>
+  </ul>
+  <button
+    data-signal="{ _editMagicItemOpen<%= magicItem.id %>: false }"
+    data-on:click="$_editMagicItemOpen<%= magicItem.id %> = !$_editMagicItemOpen<%= magicItem.id %>"
+  >
+    <span data-text="$_editMagicItemOpen<%= magicItem.id %> ? 'Close Edit Item' : 'Edit Item'"></span>
+  </button>
+
+  <div data-show="$_editMagicItemOpen<%= magicItem.id %>" style="display: none"><%- include('./magicItemEditForm', {magicItem: magicItem})%></div>
+</div>
