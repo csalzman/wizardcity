@@ -79,9 +79,9 @@ mapsRoutes.post("/create-map", async (req: any, res: any) => {
   let inserted: any;
   try {
     const mapStmt = await db.prepare(
-      "INSERT INTO maps (name) VALUES (?) RETURNING *",
+      "INSERT INTO maps (name, x_size, y_size) VALUES (?, ?, ?) RETURNING *",
     );
-    inserted = await mapStmt.get([map_name]);
+    inserted = await mapStmt.get([map_name, map_size, map_size]);
   } catch {
     res.write(
       `event: datastar-patch-signals\ndata: signals {terraformOutput: "Name already taken" }\n\n`,

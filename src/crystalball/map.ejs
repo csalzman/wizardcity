@@ -9,14 +9,13 @@
         id="map"
         data-init="
           @get('/spellbook/maps/<%- title %>');
-
-          // TODO: how to get map size?
-          // @get('/spellbook/map-columns/<%- title %>')
-          // document.documentElement.style.setProperty('--map-columns', .x_size);
+          setMapSize();
         "
       >
         Loading initial state...
       </div>
+
+      <div data-text="$foo"></div>
       <div data-signals="{cellSelected: undefined}">
         <%- include('partials/editCellSideBar') %> <%-
         include('partials/viewCellSideBar') %> <%-
@@ -29,3 +28,13 @@
     <%- include('partials/footer') %>
   </body>
 </html>
+
+<script>
+  async function setMapSize(element, data) {
+    const mapSize = await fetch("/spellbook/map-columns/<%- title %>").then(
+      (res) => res.json(),
+    );
+
+    document.documentElement.style.setProperty("--map-columns", mapSize.x_size);
+  }
+</script>
