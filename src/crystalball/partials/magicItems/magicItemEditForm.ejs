@@ -1,0 +1,42 @@
+<form id="edit-magic-item">
+  <h2>Edit <%= magicItem.item_name%></h2>
+  <div>
+    <input
+      name="item_name"
+      id="item_name"
+      value="<%= magicItem.item_name%>"
+      type="hidden"
+    />
+  </div>
+  <div>
+    <label for="cell_id">In which cell does this wizard reside?</label>
+    <br />
+    <input
+      name="cell_id"
+      id="cell_id"
+      value="<%= magicItem.cell_id%>"
+      type="number"
+    />
+  </div>
+
+  <div>
+    <label for="facts">What are these wizard's facts?</label>
+    <br />
+    <textarea name="facts" id="facts"><%= magicItem.facts %></textarea>
+  </div>
+
+  <div>
+    <label for="rarity">What are these wizard's rarity?</label>
+    <br />
+    <textarea name="rarity" id="rarity"><%= magicItem.rarity %></textarea>
+  </div>
+
+  <button
+    data-on:click="
+        @post(`../../spellbook/update-magic-item/`, {contentType: 'form'});
+        $_editMagicItemOpen<%= magicItem.id %> = false;
+    "
+  >
+    UPDATE WIZARD
+  </button>
+</form>

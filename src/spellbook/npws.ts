@@ -27,10 +27,9 @@ npwsRoutes.get("/npws/", async (req: any, res: any) => {
 npwsRoutes.post("/update-npw/", async (req: any, res: any) => {
   const { wizard_name, cell_id, wizard_class, HP, facts } = req.body;
 
-  // Upsert Structure
-  const structureStmt = await db.prepare(updateNPWStmt);
+  const npwStmt = await db.prepare(updateNPWStmt);
 
-  const npw = await structureStmt.get([
+  const npw = await npwStmt.get([
     cell_id,
     wizard_class,
     HP,
@@ -57,9 +56,9 @@ npwsRoutes.post("/create-npw/", async (req: any, res: any) => {
   const { wizard_name, cell_id, wizard_class, HP, facts } = req.body;
 
   // Insert NPW
-  const structureStmt = await db.prepare(createNPWStmt);
+  const npwStmt = await db.prepare(createNPWStmt);
 
-  const npw = await structureStmt.get([
+  const npw = await npwStmt.get([
     wizard_name,
     cell_id,
     wizard_class,

@@ -1,0 +1,33 @@
+<form id="create-magic-item">
+  <h2>Create (Magic) Item</h2>
+  <div>
+    <label for="item_name">What is this item called?</label>
+    <br />
+    <input name="item_name" id="item_name" />
+  </div>
+  <div>
+    <label for="cell_id">In which cell does this magic item reside?</label>
+    <br />
+    <input name="cell_id" id="cell_id" type="number" />
+  </div>
+
+  <div>
+    <label for="facts">What are the fact's about this item?</label>
+    <br />
+    <textarea name="facts" id="facts"></textarea>
+  </div>
+
+  <div>
+    <label for="rarity">How rare is this item?</label>
+    <br />
+    <textarea name="rarity" id="rarity"></textarea>
+  </div>
+
+  <button
+    data-on:click="
+      @post(`../../spellbook/create-magic-item/`, {contentType: 'form'});
+    "
+  >
+    CREATE Magic Item
+  </button>
+</form>

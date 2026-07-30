@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS items (
     item_name TEXT NOT NULL UNIQUE,
     cell_id INTEGER,
     facts TEXT,
+    rarity TEXT,
     created_at created_at INTEGER DEFAULT (unixepoch()),
     updated_at created_at INTEGER DEFAULT (unixepoch()),
     deleted_at TEXT

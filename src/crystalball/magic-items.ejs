@@ -1,0 +1,21 @@
+<html>
+  <%- include('partials/head') %>
+  <body>
+    <%- include('partials/header') %>
+    <div data-init="@get('/spellbook/magic-items')" id="magic-items"></div>
+    <hr />
+    <div>
+      <button
+        data-signal="{createMagicItem: false }"
+        data-on:click="$createMagicItem = !$createMagicItem"
+      >
+        Create New Magic Item?
+      </button>
+
+      <div data-show="$createMagicItem" style="display: none">
+        <%- include('./partials/magicItems/magicItemCreateForm') %>
+      </div>
+    </div>
+    <%- include('partials/footer') %>
+  </body>
+</html>

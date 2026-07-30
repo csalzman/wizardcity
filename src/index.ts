@@ -46,12 +46,14 @@ import cellsRoutes from "./spellbook/cells";
 import locationsRoutes from "./spellbook/locations";
 import structuresRoutes from "./spellbook/structure";
 import npwsRoutes from "./spellbook/npws";
+import magicItemsRoutes from "./spellbook/magicItems";
 app.use("/spellbook", wizardsRoutes);
 app.use("/spellbook", mapsRoutes);
 app.use("/spellbook", cellsRoutes);
 app.use("/spellbook", locationsRoutes);
 app.use("/spellbook", structuresRoutes);
 app.use("/spellbook", npwsRoutes);
+app.use("/spellbook", magicItemsRoutes);
 
 // Defining our frontend routes
 // Homepage
@@ -83,13 +85,17 @@ app.get("/terraform", (req: any, res: any) => {
   });
 });
 
-// List of npws
 app.get("/npws", (req: any, res: any) => {
   res.render("npws", {
     title: "Non-Player Wizards",
   });
 });
 
+app.get("/magic-items", (req: any, res: any) => {
+  res.render("magic-items", {
+    title: "Magic Items",
+  });
+});
 // Individual wizard
 app.get("/wizards/:wizard_name", (req: any, res: any) => {
   res.render("wizard", {
