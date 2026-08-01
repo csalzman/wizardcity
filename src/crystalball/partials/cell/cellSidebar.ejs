@@ -1,0 +1,29 @@
+<div id="cell-sidebar">
+   <h2>WIZARD, HERE IS WHAT YOU SEEK</h2>
+  <ul>
+    <li>id: <%= cell.id %></li>
+    <li>map_link: <%= cell.map_link %></li>
+    <li>location: <%= cell.location %></li>
+    <li>description: <%= cell.description %></li>
+    <li>created_at: <%= cell.created_at %></li>
+    <li>structure: <%= cell.structure_image %></li>
+    <li>location_name: <%= cell.location_name %></li>
+    <li>npw: <%= cell.wizard_names %></li>
+    <li>magic items: <%= cell.item_names %></li>
+    <li>updated_at: <%= cell.updated_at %></li>
+    <li>deleted_at: <%= cell.deleted_at %></li>
+  </ul>
+
+  <button
+    data-signal="{ _editCell<%= cell.id %>: false }"
+    data-on:click="$_editCell<%= cell.id %> = !$_editCell<%= cell.id %>"
+  >
+    <span
+      data-text="$_editCell<%= cell.id %> ? 'Close Edit Cell' : 'Edit Cell'"
+    ></span>
+  </button>
+
+  <div data-show="$_editCell<%= cell.id %>" style="display: none">
+    <span><%- include('./editCellForm', {cell: cell}); %></span>
+  </div>
+</div>

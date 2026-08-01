@@ -1,0 +1,17 @@
+<div
+  data-signals="{isViewOpen: false}"
+  id="cell-modal"
+  data-show="$isViewOpen"
+  style="display: none"
+  class="modal"
+>
+  <div
+    class="modal-content"
+    data-effect="
+    if($isViewOpen) { 
+      @get(`/spellbook/cell-sidebar/${$cellSelected.id}`, { filterSignals: {include: /^cellSelected\./} });
+    }"
+  >
+    <div id="cell-sidebar"></div>
+  </div>
+</div>

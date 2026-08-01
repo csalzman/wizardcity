@@ -7,23 +7,21 @@
     $selected<%= cell.id %> = !$selected<%= cell.id %>;
     // Set if cell is selected for editing
     $cellSelected = <%= JSON.stringify(cell) %>;
-    // TODO: move these out to be closer to wand
-    $isEditOpen = $wandMode === 'EDIT';
+    
+    // Open sidebar if wandMode is in View
     $isViewOpen = $wandMode === 'VIEW';
 
-    // Find index to see if it's selected or not
-    let isSelected = $selected.indexOf(<%= cell.id %>);
-    // Not selected, add it. Is selected remove it.
-    if ($isLocationOpen && isSelected < 0) { 
-      $selected.push(<%= cell.id %>);
-    } else {
-      $selected.splice(isSelected, 1);
+    // Handle selected or not
+    if($isLocationOpen) {
+      // Find index to see if it's already selected or not
+      let isSelected = $selected.indexOf(<%= cell.id %>);
+      // Not selected, add it. Is selected remove it.
+      if (isSelected < 0) { 
+        $selected.push(<%= cell.id %>);
+      } else {
+        $selected.splice(isSelected, 1);
+      }
     }
-
-    // Make sure side-bar is updated
-    if($isViewOpen) {
-      @get(`/spellbook/cell-sidebar/<%= cell.id %>`, { filterSignals: {include: /^cellSelected\./} });
-    } 
 
     // If structure is open we want to update the cell as it is clicked
     if($isStructureOpen) {
@@ -44,10 +42,9 @@
   '
   data-class:selected="$selected.indexOf(<%= cell.id %>) !== -1"
   class="cell"
-  data-indicator:fetching<%= cell.id %>
+  data-indicator="fetching<%= cell.id %>"
   data-attr:disabled="$fetching<%= cell.id %>"
 >
   <div data-show="$fetching<%= cell.id %>">Loading...</div>
   <div data-show="!$fetching<%= cell.id %>"><%= cell.id %></div>
-
 </div>

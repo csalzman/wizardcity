@@ -1,43 +1,34 @@
+WAND IS IN <span data-text="$wandMode"></span> MODE
 <div id="wand-modes" data-signals="{wandMode: 'VIEW'}">
-  WAND IS IN <span data-text="$wandMode"></span> MODE
-  <button data-on:click="$wandMode = 'VIEW'">VIEW Mode</button>
-  <button data-on:click="$wandMode = 'EDIT'">EDIT Mode</button>
   <button
     data-on:click="
-    $wandMode = 'LOCATION';
-    $isLocationOpen = true;
+      $wandMode = 'VIEW'
+      $isViewOpen = true;
+      $isLocationOpen = false;
+      $isStructureOpen = false;
+    "
+    type="checkbox"
+  >
+    VIEW Mode
+  </button>
+  <button
+    data-on:click="
+      $wandMode = 'LOCATION';
+      $isViewOpen = false;
+      $isLocationOpen = true;
+      $isStructureOpen = false;
    "
   >
     LOCATION Mode
   </button>
   <button
     data-on:click="
-    $wandMode = 'BUILDING';
-    $isStructureOpen = true;
+      $wandMode = 'BUILDING';
+      $isViewOpen = false;
+      $isLocationOpen = false;
+      $isStructureOpen = true;
    "
   >
     STRUCTURE Mode
   </button>
 </div>
-<button
-  data-on:click="
-  const root = document.documentElement;
-  
-  const gridSize = Number(getComputedStyle(root).getPropertyValue('--grid-size'));
-
-  document.documentElement.style.setProperty('--grid-size', gridSize + 10);
-  "
->
-  ZOOM IN
-</button>
-<button
-  data-on:click="
-  const root = document.documentElement;
-  
-  const gridSize = Number(getComputedStyle(root).getPropertyValue('--grid-size'));
-
-  document.documentElement.style.setProperty('--grid-size', Math.max(gridSize - 10, 10));
-  "
->
-  ZOOM OUT
-</button>

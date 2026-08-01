@@ -12,7 +12,7 @@ export const cellWithEverything = `SELECT
     cells.deleted_at,
     locations.color,
     locations.location_name,
-    locations.description,
+    locations.description as location_description,
     json_group_array(npws.wizard_name) as wizard_names,
     json_group_array(items.item_name) as item_names
 FROM cells 
