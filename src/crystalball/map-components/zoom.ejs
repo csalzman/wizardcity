@@ -1,0 +1,18 @@
+<div id="zoom-buttons">
+  <button data-on:click="changeGridSize(10)">ZOOM IN (-)</button>
+  <button data-on:click="changeGridSize(-10)">ZOOM OUT(+)</button>
+</div>
+<script>
+  function changeGridSize(num) {
+    const root = document.documentElement;
+
+    const gridSize = Number(
+      getComputedStyle(root).getPropertyValue("--grid-size"),
+    );
+
+    document.documentElement.style.setProperty(
+      "--grid-size",
+      Math.max(gridSize - num, 20),
+    );
+  }
+</script>

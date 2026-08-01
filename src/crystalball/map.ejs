@@ -15,16 +15,14 @@
         Loading initial state...
       </div>
 
-      <div data-text="$foo"></div>
-      <div data-signals="{cellSelected: undefined}">
-        <%- include('partials/editCellSideBar') %> <%-
-        include('partials/viewCellSideBar') %> <%-
+      <div data-signals="{cellSelected: undefined}" id="sidebar">
+        <%- include('partials/cell/viewCellSideBar') %> <%-
         include('partials/editLocationSideBar') %> <%-
         include('partials/editStructureSidebar') %>
       </div>
     </div>
-    <div data-text="JSON.stringify($mapSize)"></div>
-    <div data-text="JSON.stringify($cellSelected)"></div>
+    <%- include('map-components/zoom') %>
+    <!-- <div data-text="JSON.stringify($cellSelected)"></div> -->
     <%- include('partials/footer') %>
   </body>
 </html>

@@ -74,7 +74,7 @@ app.get("/maps", (req: any, res: any) => {
 // Show map
 app.get("/map/:map_name", (req: any, res: any) => {
   res.render("map", {
-    title: req.params.map_name,
+    title: `MAP: ${req.params.map_name}`,
   });
 });
 

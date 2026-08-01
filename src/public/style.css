@@ -7,11 +7,33 @@
 html {
   font-family: sans-serif;
   font-size: 16px;
+  background-image: url("./images/brick.png");
+  background-repeat: repeat;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 1000px;
+  background-color: #fff7df;
+  height: 100vh;
+  margin: 0 auto;
+  padding: 1rem;
 }
 
 #footer {
   display: flex;
   justify-content: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+#footer ul {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  list-style-type: none;
 }
 
 #main-nav {
@@ -26,7 +48,7 @@ html {
 }
 
 .modal {
-  background-color: gray;
+  padding: 1rem;
 }
 
 #map {
@@ -37,6 +59,16 @@ html {
   border: 1px solid black;
   display: grid;
   grid-template-columns: repeat(var(--map-columns), 1fr);
+}
+
+#sidebar {
+  width: 480px;
+  border: 1px solid black;
+  margin-left: 1rem;
+}
+
+#zoom-buttons {
+  margin-top: 1rem;
 }
 
 .cell {

@@ -1,0 +1,24 @@
+<div id="edit-cell-form" class="modal">
+  <form id="edit-cell-form">
+    <div>
+      <label for="description">Describe this place</label> <br />
+      <input
+        name="description"
+        id="description"
+        value="<%= cell.description %>"
+      />
+    </div>
+    <div>
+      <label for="map_link">Does this place link to another?</label> <br />
+      <input name="map_link" id="map_link" value="<%= cell.map_link %>" />
+    </div>
+    <button
+      data-on:click="
+          @post(`../spellbook/cell/<%= cell.id %>`, {contentType: 'form'});
+          $_editCell<%= cell.id %> = false;
+        "
+    >
+      UPDATE
+    </button>
+  </form>
+</div>
