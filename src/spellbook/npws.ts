@@ -2,23 +2,26 @@ import express from "express";
 import db from "../db/databaseconnect";
 const npwsRoutes = express.Router();
 
-import { npwsStmt, createNPWStmt, updateNPWStmt } from "./statements";
+import { patchElement } from "./helpers";
+
+import { npwStmt, npwsStmt, createNPWStmt, updateNPWStmt } from "./statements";
 
 // Get NPWs
 npwsRoutes.get("/npws/", async (req: any, res: any) => {
   const getNpwsStmt = await db.prepare(npwsStmt);
   const npws = await getNpwsStmt.all();
 
-  const htmlSnippet: any = await new Promise((resolve, reject) => {
-    res.render("partials/npw/npwList", { npws }, (err: any, html: any) => {
-      if (err) reject(err);
-      else resolve(html);
-    });
-  });
+  await patchElement(res, "partials/npw/npwList", { npws });
 
-  res.write(
-    `event: datastar-patch-elements\ndata: elements ${htmlSnippet.replace(/\n/g, "")}\n\n`,
-  );
+  res.end();
+});
+
+// Get NPW
+npwsRoutes.get("/npws/:wizard_name", async (req: any, res: any) => {
+  const getNpwStmt = await db.prepare(npwStmt);
+  const npw = await getNpwStmt.get([req.params.wizard_name]);
+
+  await patchElement(res, "partials/npw/npwView", { npw });
 
   res.end();
 });
@@ -37,16 +40,7 @@ npwsRoutes.post("/update-npw/", async (req: any, res: any) => {
     wizard_name,
   ]);
 
-  const htmlSnippet: any = await new Promise((resolve, reject) => {
-    res.render("partials/npw/npwView", { npw }, (err: any, html: any) => {
-      if (err) reject(err);
-      else resolve(html);
-    });
-  });
-
-  res.write(
-    `event: datastar-patch-elements\ndata: elements ${htmlSnippet.replace(/\n/g, "")}\n\n`,
-  );
+  await patchElement(res, "partials/npw/npwView", { npw });
 
   res.end();
 });
@@ -70,16 +64,7 @@ npwsRoutes.post("/create-npw/", async (req: any, res: any) => {
   const getNpwsStmt = await db.prepare(npwsStmt);
   const npws = await getNpwsStmt.all();
 
-  const htmlSnippet: any = await new Promise((resolve, reject) => {
-    res.render("partials/npw/npwList", { npws }, (err: any, html: any) => {
-      if (err) reject(err);
-      else resolve(html);
-    });
-  });
-
-  res.write(
-    `event: datastar-patch-elements\ndata: elements ${htmlSnippet.replace(/\n/g, "")}\n\n`,
-  );
+  await patchElement(res, "partials/npw/npwList", { npws });
 
   res.end();
 });

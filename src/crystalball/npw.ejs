@@ -1,0 +1,14 @@
+<html>
+  <%- include('partials/head') %>
+  <body>
+    <%- include('partials/header') %>
+    <div
+      data-init="@get('/spellbook/npws/<%= wizard_name %>')"
+      id="npwView<%= wizard_name %>"
+    ></div>
+    <hr />
+    <a href="/npws">See All NPWs</a>
+
+    <%- include('partials/footer') %>
+  </body>
+</html>

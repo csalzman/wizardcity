@@ -8,8 +8,20 @@
     <li>created_at: <%= cell.created_at %></li>
     <li>structure: <%= cell.structure_image %></li>
     <li>location_name: <%= cell.location_name %></li>
-    <li>npw: <%= cell.wizard_names %></li>
-    <li>magic items: <%= cell.item_names %></li>
+    <li>NPWs:
+      <ul>  
+        <% JSON.parse(cell.wizard_names).forEach(function(npw) { %>
+            <li id="item<%= npw %>"><a href="/npws/<%= npw %>"><%= npw %></a></li>
+        <% }); %>
+      </ul>
+    </li>
+    <li>magic items:
+      <ul>  
+        <% JSON.parse(cell.item_names).forEach(function(item_name) { %>
+            <li id="item<%= item_name %>"><a href="/magic-items/<%= item_name %>"><%= item_name %></a></li>
+        <% }); %>
+      </ul>
+    </li>
     <li>updated_at: <%= cell.updated_at %></li>
     <li>deleted_at: <%= cell.deleted_at %></li>
   </ul>

@@ -1,0 +1,14 @@
+<html>
+  <%- include('partials/head') %>
+  <body>
+    <%- include('partials/header') %>
+    <div
+      data-init="@get('/spellbook/magic-items/<%= item_name %>')"
+      id="magicItemView<%= item_name %>"
+    ></div>
+    <hr />
+    <a href="/magic-items">See All Magic Items</a>
+
+    <%- include('partials/footer') %>
+  </body>
+</html>

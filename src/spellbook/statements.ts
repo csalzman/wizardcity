@@ -13,8 +13,8 @@ export const cellWithEverything = `SELECT
     locations.color,
     locations.location_name,
     locations.description as location_description,
-    json_group_array(npws.wizard_name) as wizard_names,
-    json_group_array(items.item_name) as item_names
+    json_group_array(DISTINCT npws.wizard_name) as wizard_names,
+    json_group_array(DISTINCT items.item_name) as item_names
 FROM cells 
 LEFT JOIN locations ON cells.location = locations.id
 LEFT JOIN npws ON cells.id = npws.cell_id
@@ -38,8 +38,8 @@ export const cellsForMapWithEverythingStmt = `SELECT
     locations.color,
     locations.location_name,
     locations.description,
-    json_group_array(npws.wizard_name) as wizard_names,
-    json_group_array(items.item_name) as item_names
+    json_group_array(DISTINCT npws.wizard_name) as wizard_names,
+    json_group_array(DISTINCT items.item_name) as item_names
 FROM cells 
 LEFT JOIN locations ON cells.location = locations.id
 LEFT JOIN npws ON cells.id = npws.cell_id
@@ -47,7 +47,8 @@ LEFT JOIN items ON cells.id = items.cell_id
 WHERE map_id = ?
 GROUP BY cells.id`;
 
-export const npwsStmt = `SELECT * FROM npws;`;
+export const npwsStmt = `SELECT * FROM npws`;
+export const npwStmt = `${npwsStmt} WHERE wizard_name = ?`;
 
 export const updateNPWStmt = `
 UPDATE npws
@@ -66,7 +67,9 @@ VALUES (?, ?, ?, ?, ?)
 RETURNING *;
 `;
 
-export const magicItemsStmt = `SELECT * FROM items;`;
+export const magicItemsStmt = `SELECT * FROM items`;
+
+export const magicItemStmt = `${magicItemsStmt} WHERE item_name = ?`;
 
 export const updateMagicItemStmt = `
 UPDATE items

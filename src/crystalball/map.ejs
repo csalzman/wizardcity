@@ -22,14 +22,14 @@
       </div>
     </div>
     <%- include('map-components/zoom') %>
-    <!-- <div data-text="JSON.stringify($cellSelected)"></div> -->
+    <div data-text="JSON.stringify($cellSelected)"></div>
     <%- include('partials/footer') %>
   </body>
 </html>
 
 <script>
   async function setMapSize(element, data) {
-    const mapSize = await fetch("/spellbook/map-columns/<%- title %>").then(
+    const mapSize = await fetch("/spellbook/map-columns/<%- mapName %>").then(
       (res) => res.json(),
     );
 

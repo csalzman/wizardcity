@@ -2,7 +2,10 @@ import express from "express";
 import db from "../db/databaseconnect";
 const magicItemsRoutes = express.Router();
 
+import { patchElement } from "./helpers";
+
 import {
+  magicItemStmt,
   magicItemsStmt,
   createMagicItemStmt,
   updateMagicItemStmt,
@@ -12,20 +15,16 @@ magicItemsRoutes.get("/magic-items/", async (req: any, res: any) => {
   const getMagicItems = await db.prepare(magicItemsStmt);
   const magicItems = await getMagicItems.all();
 
-  const htmlSnippet: any = await new Promise((resolve, reject) => {
-    res.render(
-      "partials/magicItems/magicItemList",
-      { magicItems },
-      (err: any, html: any) => {
-        if (err) reject(err);
-        else resolve(html);
-      },
-    );
-  });
+  await patchElement(res, "partials/magicItems/magicItemList", { magicItems });
 
-  res.write(
-    `event: datastar-patch-elements\ndata: elements ${htmlSnippet.replace(/\n/g, "")}\n\n`,
-  );
+  res.end();
+});
+
+magicItemsRoutes.get("/magic-items/:item_name", async (req: any, res: any) => {
+  const getMagicItem = await db.prepare(magicItemStmt);
+  const magicItem = await getMagicItem.get([req.params.item_name]);
+
+  await patchElement(res, "partials/magicItems/magicItemView", { magicItem });
 
   res.end();
 });
@@ -33,7 +32,6 @@ magicItemsRoutes.get("/magic-items/", async (req: any, res: any) => {
 magicItemsRoutes.post("/update-magic-item/", async (req: any, res: any) => {
   const { item_name, cell_id, facts, rarity } = req.body;
 
-  // Upsert Structure
   const magicItemStmt = await db.prepare(updateMagicItemStmt);
 
   const magicItem = await magicItemStmt.get([
@@ -43,20 +41,7 @@ magicItemsRoutes.post("/update-magic-item/", async (req: any, res: any) => {
     item_name,
   ]);
 
-  const htmlSnippet: any = await new Promise((resolve, reject) => {
-    res.render(
-      "partials/magicItems/magicItemView",
-      { magicItem },
-      (err: any, html: any) => {
-        if (err) reject(err);
-        else resolve(html);
-      },
-    );
-  });
-
-  res.write(
-    `event: datastar-patch-elements\ndata: elements ${htmlSnippet.replace(/\n/g, "")}\n\n`,
-  );
+  await patchElement(res, "partials/magicItems/magicItemView", { magicItem });
 
   res.end();
 });
@@ -73,20 +58,7 @@ magicItemsRoutes.post("/create-magic-item/", async (req: any, res: any) => {
   const getMagicItemsStmt = await db.prepare(magicItemsStmt);
   const magicItems = await getMagicItemsStmt.all();
 
-  const htmlSnippet: any = await new Promise((resolve, reject) => {
-    res.render(
-      "partials/magicItems/magicItemList",
-      { magicItems },
-      (err: any, html: any) => {
-        if (err) reject(err);
-        else resolve(html);
-      },
-    );
-  });
-
-  res.write(
-    `event: datastar-patch-elements\ndata: elements ${htmlSnippet.replace(/\n/g, "")}\n\n`,
-  );
+  await patchElement(res, "partials/magicItems/magicItemList", { magicItems });
 
   res.end();
 });

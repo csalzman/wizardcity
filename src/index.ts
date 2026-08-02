@@ -92,15 +92,23 @@ app.get("/npws", (req: any, res: any) => {
   });
 });
 
+app.get("/npws/:wizard_name", (req: any, res: any) => {
+  res.render("npw", {
+    title: `Non-Player Wizard: ${req.params.wizard_name}`,
+    wizard_name: req.params.wizard_name,
+  });
+});
+
 app.get("/magic-items", (req: any, res: any) => {
   res.render("magic-items", {
     title: "Magic Items",
   });
 });
-// Individual wizard
-app.get("/wizards/:wizard_name", (req: any, res: any) => {
-  res.render("wizard", {
-    title: req.params.wizard_name,
+
+app.get("/magic-items/:item_name", (req: any, res: any) => {
+  res.render("magic-item", {
+    title: `Magic Items: ${req.params.item_name}`,
+    item_name: req.params.item_name,
   });
 });
 
