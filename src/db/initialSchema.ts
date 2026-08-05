@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS cells (
     map_id INTEGER NOT NULL,
     x INTEGER NOT NULL,
     y INTEGER NOT NULL,
-    map_link TEXT,
+    cell_link TEXT,
     location INTEGER,
     structure_image TEXT,
     description TEXT,

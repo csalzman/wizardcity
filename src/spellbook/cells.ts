@@ -3,11 +3,13 @@ import db from "../db/databaseconnect";
 const cellsRoutes = express.Router();
 import { cellWithEverything } from "./statements";
 
+import { patchElement } from "./helpers";
+
 // Update a cell
 cellsRoutes.post("/cell/:cell_id", async (req: any, res: any) => {
   const cellId = req.params.cell_id;
 
-  const { map_link, description } = req.body;
+  const { cell_link, description } = req.body;
 
   res.writeHead(200, {
     "Content-Type": "text/event-stream",
@@ -17,45 +19,25 @@ cellsRoutes.post("/cell/:cell_id", async (req: any, res: any) => {
   const stmt = await db.prepare(`
     UPDATE cells 
     SET 
-      map_link = ?, 
+      cell_link = ?, 
       description = ?
     WHERE id = (?) 
-    RETURNING *
+    RETURNING id
   `);
 
-  const updatedCell = await stmt.get([map_link, description, cellId]);
+  // Update cell
+  const cell = await stmt.get([cell_link, description, cellId]);
 
-  const htmlCellSidebar: any = await new Promise((resolve, reject) => {
-    res.render(
-      "partials/cell/cellSidebar",
-      { cell: updatedCell },
-      (err: any, html: any) => {
-        if (err) reject(err);
-        else resolve(html);
-      },
-    );
+  // Now get it with everything we need
+  const updatedCellStmt = await db.prepare(cellWithEverything);
+
+  const updatedCell = await updatedCellStmt.get([cell.id]);
+
+  await patchElement(res, "partials/cell/cellSidebar", { cell: updatedCell });
+
+  await patchElement(res, "../crystalball/map-components/cell", {
+    cell: updatedCell,
   });
-
-  res.write(
-    `event: datastar-patch-elements\ndata: elements ${htmlCellSidebar.replace(/\n/g, "")}\n\n`,
-  );
-
-  const htmlForCell: any = await new Promise((resolve, reject) => {
-    res.render(
-      "../crystalball/map-components/cell",
-      {
-        cell: updatedCell,
-      },
-      (err: any, html: any) => {
-        if (err) reject(err);
-        else resolve(html);
-      },
-    );
-  });
-
-  res.write(
-    `event: datastar-patch-elements\ndata: elements ${htmlForCell.replace(/\n/g, "")}\n\n`,
-  );
 
   res.end();
 });

@@ -1,9 +1,10 @@
 export const cellWithEverything = `SELECT 
     cells.id,
-    cells.map_id,
+    cells.map_id AS map_id,
     cells.x,
     cells.y,
-    cells.map_link,
+    cells.cell_link,
+    map_name.linked_map_name AS map_link,
     cells.location,
     cells.structure_image,
     cells.description,
@@ -19,16 +20,23 @@ FROM cells
 LEFT JOIN locations ON cells.location = locations.id
 LEFT JOIN npws ON cells.id = npws.cell_id
 LEFT JOIN items ON cells.id = items.cell_id
+LEFT JOIN (
+  SELECT name AS linked_map_name, cells.id AS cell_id 
+  FROM maps 
+  LEFT JOIN cells ON cells.map_id = maps.id  
+) AS map_name ON cells.cell_link = map_name.cell_id
 WHERE cells.id = ?
 GROUP BY cells.id
 `;
 
+// TODO: query is very slow because we're joining on cells and maps just to get the map name for the linked map. Look into a WITH
 export const cellsForMapWithEverythingStmt = `SELECT 
     cells.id,
-    cells.map_id,
+    cells.map_id AS map_id,
     cells.x,
     cells.y,
-    cells.map_link,
+    cells.cell_link,
+    map_name.linked_map_name AS map_link,
     cells.location,
     cells.structure_image,
     cells.description,
@@ -44,7 +52,12 @@ FROM cells
 LEFT JOIN locations ON cells.location = locations.id
 LEFT JOIN npws ON cells.id = npws.cell_id
 LEFT JOIN items ON cells.id = items.cell_id
-WHERE map_id = ?
+LEFT JOIN (
+  SELECT name AS linked_map_name, cells.id AS cell_id
+  FROM maps 
+  LEFT JOIN cells ON cells.map_id = maps.id  
+) AS map_name ON cells.cell_link = map_name.cell_id
+WHERE cells.map_id = ?
 GROUP BY cells.id`;
 
 export const npwsStmt = `SELECT * FROM npws`;

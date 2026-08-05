@@ -42,7 +42,7 @@ locationsRoutes.post("/location/", async (req: any, res: any) => {
       cells.map_id,
       cells.x,
       cells.y,
-      cells.map_link,
+      cells.cell_link,
       cells.location,
       cells.structure_image,
       cells.description,
