@@ -1,7 +1,7 @@
 <div id="edit-cell-form" class="modal">
   <form id="edit-cell-form">
     <div>
-      <label for="description">Describe this place</label> <br />
+      <label for="description">Describe this cell</label> <br />
       <input
         name="description"
         id="description"
@@ -9,8 +9,14 @@
       />
     </div>
     <div>
-      <label for="map_link">Does this place link to another?</label> <br />
-      <input name="map_link" id="map_link" value="<%= cell.map_link %>" />
+      <label for="cell_link">Does this cell link to another cell?</label>
+      <br />
+      <input
+        name="cell_link"
+        id="cell_link"
+        value="<%= cell.cell_link %>"
+        type="number"
+      />
     </div>
     <button
       data-on:click="

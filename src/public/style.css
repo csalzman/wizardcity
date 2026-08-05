@@ -42,6 +42,7 @@ body {
 #map-wrapper {
   position: relative;
   display: flex;
+  margin-top: 1rem;
 }
 
 .modal {
@@ -56,12 +57,14 @@ body {
   border: 1px solid black;
   display: grid;
   grid-template-columns: repeat(var(--map-columns), 1fr);
+  box-shadow: 0.25rem 0.5rem 0.5rem black;
 }
 
 #sidebar {
   width: 480px;
   border: 1px solid black;
   margin-left: 1rem;
+  box-shadow: 0.25rem 0.5rem 0.5rem black;
 }
 
 #zoom-buttons {
