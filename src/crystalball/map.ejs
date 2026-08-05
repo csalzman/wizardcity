@@ -8,6 +8,7 @@
         data-init="
           @get('/spellbook/maps/<%- mapName %>');
           setMapSize();
+          scrollToCell();
         "
       >
         Loading initial state...
@@ -32,5 +33,19 @@
     );
 
     document.documentElement.style.setProperty("--map-columns", mapSize.x_size);
+  }
+
+  async function scrollToCell() {
+    const findCell = new URLSearchParams(window.location.search).get("cell");
+
+    if (findCell) {
+      const target = document.getElementById(findCell);
+
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center",
+      });
+    }
   }
 </script>
