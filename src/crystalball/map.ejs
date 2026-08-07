@@ -10,6 +10,9 @@
           setMapSize();
           scrollToCell();
         "
+        data-on:datastar-fetch="
+          evt.detail.type === 'datastar-patch-elements' && scrollToCell()
+        "
       >
         Loading initial state...
       </div>
@@ -27,19 +30,19 @@
 </html>
 
 <script>
-  async function setMapSize(element, data) {
-    const mapSize = await fetch("/spellbook/map-columns/<%- mapName %>").then(
-      (res) => res.json(),
-    );
+  async function setMapSize() {
+    const mapSize = await fetch("/spellbook/map-columns/<%- mapName %>", {
+      cache: "no-store",
+    }).then((res) => res.json());
 
     document.documentElement.style.setProperty("--map-columns", mapSize.x_size);
   }
 
-  async function scrollToCell() {
+  function scrollToCell() {
     const findCell = new URLSearchParams(window.location.search).get("cell");
 
     if (findCell) {
-      const target = document.getElementById(findCell);
+      const target = document.getElementById(findCell.toString());
 
       target.scrollIntoView({
         behavior: "smooth",

@@ -8,7 +8,18 @@
   <div class="modal-content">
     <h2>WIZARD, WHAT BUILDING SHALL YOU MAKE</h2>
     <!-- Select structure image -->
-    <%- include('./structureRadio', {images: ['house', 'cave', 'orb', 'tree']})%>
+    <%- include('./structureRadio', {images: [
+      'house', 
+      'cave', 
+      'orb', 
+      'tree', 
+      'mountains', 
+      'corner-bottom-left',
+      'corner-bottom-right',
+      'corner-top-left',
+      'corner-top-right'
+      ]})
+    %>
   </div>
   A <span data-text="$selectedStructure"></span>?
 </div>
