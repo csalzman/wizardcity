@@ -8,6 +8,7 @@
         data-init="
           @get('/spellbook/maps/<%- mapName %>');
           setMapSize();
+          scrollToCell();
         "
         data-on:datastar-fetch="
           evt.detail.type === 'datastar-patch-elements' && scrollToCell()
