@@ -8,7 +8,6 @@
         data-init="
           @get('/spellbook/maps/<%- mapName %>');
           setMapSize();
-          scrollToCell();
         "
         data-on:datastar-fetch="
           evt.detail.type === 'datastar-patch-elements' && scrollToCell()
@@ -44,11 +43,13 @@
     if (findCell) {
       const target = document.getElementById(findCell.toString());
 
-      target.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-        inline: "center",
-      });
+      if (target) {
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "center",
+        });
+      }
     }
   }
 </script>

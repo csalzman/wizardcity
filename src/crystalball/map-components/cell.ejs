@@ -15,7 +15,7 @@
     if($isLocationOpen) {
       // Find index to see if it's already selected or not
       let isSelected = $selected.indexOf(<%= cell.id %>);
-      // Not selected, add it. Is selected remove it.
+      // Not selected, add it. If selected remove it.
       if (isSelected < 0) { 
         $selected.push(<%= cell.id %>);
       } else {
@@ -34,12 +34,12 @@
     }
   "
   id="<%= cell.id %>"
-  style='
+  style="
     background-color: <%= cell.color %>;
     <% if (cell.structure_image) { %>
-      background-image: url("../images/<%= cell.structure_image %>.png");
+      background-image: url(''../images/<%= cell.structure_image %>.png');
     <% } %>
-  '
+  "
   data-class:selected="$selected.indexOf(<%= cell.id %>) !== -1"
   class="cell"
   data-indicator="fetching<%= cell.id %>"
