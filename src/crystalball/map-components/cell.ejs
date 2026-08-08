@@ -1,10 +1,13 @@
 <div
   data-signals="{
-    selected<%= cell.id %>: false
+    isSelected<%= cell.id %>: false
   }"
-  data-on:click="
+  data-on:click=" 
+    if(!$isLocationOpen) {
+      @setAll(false, {include: /^isSelected/})
+    }
     // Handle if cell is selected or not
-    $selected<%= cell.id %> = !$selected<%= cell.id %>;
+    $isSelected<%= cell.id %> = !$isSelected<%= cell.id %>;
     // Set if cell is selected for editing
     $cellSelected = <%= JSON.stringify(cell) %>;
     
@@ -37,10 +40,10 @@
   style="
     background-color: <%= cell.color %>;
     <% if (cell.structure_image) { %>
-      background-image: url(''../images/<%= cell.structure_image %>.png');
+      background-image: url('../images/<%= cell.structure_image %>.png');
     <% } %>
   "
-  data-class:selected="$selected.indexOf(<%= cell.id %>) !== -1"
+  data-class:selected="$isSelected<%= cell.id %>"
   class="cell"
   data-indicator="fetching<%= cell.id %>"
   data-attr:disabled="$fetching<%= cell.id %>"
