@@ -10,3 +10,9 @@ export async function patchElement(res: any, template: string, locals: any) {
     `event: datastar-patch-elements\ndata: elements ${htmlSnippet.replace(/\n/g, "")}\n\n`,
   );
 }
+
+export async function patchElementNoTemplate(res: any, html: string) {
+  res.write(
+    `event: datastar-patch-elements\ndata: elements ${html.replace(/\n/g, "")}\n\n`,
+  );
+}
