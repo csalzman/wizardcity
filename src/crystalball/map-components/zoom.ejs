@@ -1,6 +1,10 @@
 <div id="zoom-buttons">
   <button data-on:click="changeGridSize(10)">ZOOM IN (-)</button>
   <button data-on:click="changeGridSize(-10)">ZOOM OUT(+)</button>
+
+  <button data-on:click="$cellNumbers = !$cellNumbers">
+    Toggle Cell Numbers
+  </button>
 </div>
 <script>
   function changeGridSize(num) {

@@ -81,8 +81,15 @@ body {
   cursor: pointer;
 }
 
+.cell:hover {
+  box-shadow: inset 0 0 0 0.1rem #d1adfd;
+}
+.cell:active {
+  box-shadow: inset 0 0 0 0.3rem #b57df9;
+}
+
 .selected {
-  box-shadow: inset 0 0 0 0.2rem black;
+  box-shadow: inset 0 0 0 0.2rem purple;
 }
 
 .structure-radio input[type="radio"] {
