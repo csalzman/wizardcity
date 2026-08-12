@@ -1,4 +1,5 @@
 <div
+  id="<%= cell.id %>"
   data-signals="{
     isSelected<%= cell.id %>: false
   }"
@@ -28,6 +29,7 @@
 
     // If structure is open we want to update the cell as it is clicked
     if($isStructureOpen) {
+      $isSelected<%= cell.id %> = false;
       @post(`/spellbook/structure/`, { 
         payload: { 
           cell_id: <%= cell.id %>, 
@@ -36,7 +38,6 @@
       });
     }
   "
-  id="<%= cell.id %>"
   style="
     background-color: <%= cell.color %>;
     <% if (cell.structure_image) { %>

@@ -1,4 +1,3 @@
-WAND IS IN <span data-text="$wandMode"></span> MODE
 <div id="wand-modes" data-signals="{wandMode: 'VIEW'}">
   <button
     data-on:click="
@@ -7,9 +6,10 @@ WAND IS IN <span data-text="$wandMode"></span> MODE
       $isLocationOpen = false;
       $isStructureOpen = false;
     "
-    type="checkbox"
+    class="wand-button"
+    data-class:wand-selected="$wandMode === 'VIEW'"
   >
-    VIEW Mode
+    VIEW<br />MODE
   </button>
   <button
     data-on:click="
@@ -18,8 +18,10 @@ WAND IS IN <span data-text="$wandMode"></span> MODE
       $isLocationOpen = true;
       $isStructureOpen = false;
    "
+    class="wand-button"
+    data-class:wand-selected="$wandMode === 'LOCATION'"
   >
-    LOCATION Mode
+    LOCATION<br />MODE
   </button>
   <button
     data-on:click="
@@ -28,7 +30,9 @@ WAND IS IN <span data-text="$wandMode"></span> MODE
       $isLocationOpen = false;
       $isStructureOpen = true;
    "
+    class="wand-button"
+    data-class:wand-selected="$wandMode === 'BUILDING'"
   >
-    STRUCTURE Mode
+    STRUCTURE<br />MODE
   </button>
 </div>

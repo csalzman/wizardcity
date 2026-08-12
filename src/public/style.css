@@ -111,3 +111,12 @@ body {
   background-size: calc(var(--grid-size) * 1px);
   image-rendering: pixelated;
 }
+.wand-button {
+  background-color: rgb(192, 162, 216);
+  color: white;
+  height: 3rem;
+  width: 5rem;
+}
+.wand-selected {
+  background-color: rgb(89, 28, 150);
+}

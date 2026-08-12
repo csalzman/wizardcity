@@ -9,6 +9,10 @@ import { patchElement, patchElementNoTemplate } from "./helpers";
 // Update a structure
 structuresRoutes.post("/structure/", async (req: any, res: any) => {
   const { cell_id, structure_image } = req.body;
+  res.writeHead(200, {
+    "Content-Type": "text/event-stream",
+    "Cache-Control": "no-cache",
+  });
 
   if (!structure_image) {
     await patchElementNoTemplate(
@@ -22,11 +26,10 @@ structuresRoutes.post("/structure/", async (req: any, res: any) => {
     const structureStmt = await db.prepare(`
       UPDATE cells
       SET structure_image = ?
-      WHERE id = ?
-      RETURNING *;
+      WHERE id = ?;
     `);
 
-    const b = await structureStmt.get([
+    await structureStmt.get([
       structure_image === "none" ? undefined : structure_image,
       cell_id,
     ]);

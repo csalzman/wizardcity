@@ -4,10 +4,15 @@
     
     <%- include('partials/header', {title: 'Wizard City'}) %>
 
-    <div id="map" class="homepage-map" data-init="@get('/spellbook/maps/asdf?option=homepage')">
-      Loading initial state...
+    <div id="map-wrapper" data-signals="{wandMode: 'VIEW'}">
+      <div id="map" class="homepage-map" data-init="@get('/spellbook/maps/asdf?option=homepage')">
+        Loading initial state...
+      </div>
+      <div data-signals="{cellSelected: undefined}" id="sidebar">
+        <%- include('partials/cell/viewCellSideBar') %> 
+      </div>
     </div>
-     <%- include('map-components/zoom') %>
+    <%- include('map-components/zoom') %>
     <%- include('partials/footer') %>
   </body>
 </html>

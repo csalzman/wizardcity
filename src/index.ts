@@ -35,6 +35,14 @@ app.use(attachUser);
 import timRoutes from "./tim/discord";
 app.use("/auth", timRoutes);
 
+// Defining our frontend routes
+// Homepage
+app.get("/", (req: any, res: any) => {
+  res.render("index", {
+    title: "Wizard City",
+  });
+});
+
 // Everything below this line requires being logged in
 // If not the user is redirected to the login page
 app.use(requireLogin);
@@ -54,14 +62,6 @@ app.use("/spellbook", locationsRoutes);
 app.use("/spellbook", structuresRoutes);
 app.use("/spellbook", npwsRoutes);
 app.use("/spellbook", magicItemsRoutes);
-
-// Defining our frontend routes
-// Homepage
-app.get("/", (req: any, res: any) => {
-  res.render("index", {
-    title: "Wizard City",
-  });
-});
 
 // Map related
 // Show list of all maps
