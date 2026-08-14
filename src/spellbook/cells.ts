@@ -57,7 +57,6 @@ cellsRoutes.get("/cell-sidebar/:cell_id", async (req: any, res: any) => {
     return res.end();
   }
 
-  console.log(isHomepage);
   const htmlSnippet: any = await new Promise((resolve, reject) => {
     res.render(
       // lol

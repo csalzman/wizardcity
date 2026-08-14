@@ -70,12 +70,12 @@ CREATE TABLE IF NOT EXISTS locations (
     deleted_at TEXT
 );
 
-CREATE TRIGGER IF NOT EXISTS updated_at_trigger
+CREATE TRIGGER IF NOT EXISTS updated_at_trigger_cells
 AFTER UPDATE ON cells
 FOR EACH ROW
 BEGIN
     UPDATE items 
-    SET updated_at = CURRENT_TIMESTAMP 
+    SET updated_at = unixepoch() 
     WHERE id = OLD.id;
 END;
 `;
