@@ -65,12 +65,12 @@ mapsRoutes.post("/create-map", async (req: any, res: any) => {
   });
 
   res.write(
-    `event: datastar-patch-signals\ndata: signals {terraformOutput: "creating" }\n\n`,
+    `event: datastar-patch-elements\ndata: elements <div id='terraform-output'>Creating map: ${map_name}</div>\n\n`,
   );
 
-  if (map_size > 100 || map_size <= 0) {
+  if (map_size > 100 || map_size < 10) {
     res.write(
-      `event: datastar-patch-signals\ndata: signals {terraformOutput: "Map Size out of bounds!" }\n\n`,
+      `event: datastar-patch-elements\ndata: elements <div id='terraform-output'>Map Size out of bounds!</div>\n\n`,
     );
     res.end();
   }
@@ -84,13 +84,14 @@ mapsRoutes.post("/create-map", async (req: any, res: any) => {
     inserted = await mapStmt.get([map_name, map_size, map_size]);
   } catch {
     res.write(
-      `event: datastar-patch-signals\ndata: signals {terraformOutput: "Name already taken" }\n\n`,
+      `event: datastar-patch-elements\ndata: elements <div id='terraform-output'>Name already taken!</div>\n\n`,
     );
 
     return res.end();
   }
+
   res.write(
-    `event: datastar-patch-signals\ndata: signals {terraformOutput: "Map made, generating cells" }\n\n`,
+    `event: datastar-patch-elements\ndata: elements <div id='terraform-output'>Map made, generating cells</div>\n\n`,
   );
 
   // Generate cells
@@ -118,14 +119,16 @@ mapsRoutes.post("/create-map", async (req: any, res: any) => {
     await insertStmt.all(arr);
   } catch (e) {
     console.log(e);
+
     res.write(
-      `event: datastar-patch-signals\ndata: signals {terraformOutput: "Error generating cells" }\n\n`,
+      `event: datastar-patch-elements\ndata: elements <div id='terraform-output'>Error generating cells</div>\n\n`,
     );
+
     return res.end();
   }
 
   res.write(
-    `event: datastar-patch-signals\ndata: signals {terraformOutput: "Map created! Cells generated!" }\n\n`,
+    `event: datastar-patch-elements\ndata: elements <div id='terraform-output'>Map Created! <a href='/map/${map_name}'>See your map!</a> \n\n`,
   );
 
   return res.end();

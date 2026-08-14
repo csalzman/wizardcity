@@ -44,6 +44,8 @@ cellsRoutes.post("/cell/:cell_id", async (req: any, res: any) => {
 
 // Get a cell
 cellsRoutes.get("/cell-sidebar/:cell_id", async (req: any, res: any) => {
+  const isHomepage = req.query.homepage;
+
   // Get cell
   const cellId = req.params.cell_id;
   const getCellStmt = await db.prepare(cellWithEverything);
@@ -55,11 +57,19 @@ cellsRoutes.get("/cell-sidebar/:cell_id", async (req: any, res: any) => {
     return res.end();
   }
 
+  console.log(isHomepage);
   const htmlSnippet: any = await new Promise((resolve, reject) => {
-    res.render("partials/cell/cellSidebar", { cell }, (err: any, html: any) => {
-      if (err) reject(err);
-      else resolve(html);
-    });
+    res.render(
+      // lol
+      isHomepage === "true"
+        ? "partials/cell/homepageCellSidebar"
+        : "partials/cell/cellSidebar",
+      { cell },
+      (err: any, html: any) => {
+        if (err) reject(err);
+        else resolve(html);
+      },
+    );
   });
 
   res.write(
