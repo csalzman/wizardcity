@@ -68,6 +68,16 @@ CREATE TABLE IF NOT EXISTS locations (
     created_at created_at INTEGER DEFAULT (unixepoch()),
     updated_at created_at INTEGER DEFAULT (unixepoch()),
     deleted_at TEXT
-);`;
+);
+
+CREATE TRIGGER IF NOT EXISTS updated_at_trigger_cells
+AFTER UPDATE ON cells
+FOR EACH ROW
+BEGIN
+    UPDATE items 
+    SET updated_at = unixepoch() 
+    WHERE id = OLD.id;
+END;
+`;
 
 export default schema;

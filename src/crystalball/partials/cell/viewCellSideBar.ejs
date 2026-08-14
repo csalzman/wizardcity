@@ -9,7 +9,10 @@
     class="modal-content"
     data-effect="
     if($isViewOpen) { 
-      @get(`/spellbook/cell-sidebar/${$cellSelected.id}`, { filterSignals: {include: /^cellSelected\./} });
+      @get(
+        `/spellbook/cell-sidebar/${$cellSelected.id}?homepage=<%= homepage %>`, 
+        { filterSignals: {include: /^cellSelected\./} }
+      );
     }"
   >
     <div id="cell-sidebar"></div>

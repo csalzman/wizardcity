@@ -1,43 +1,5 @@
 <div id="cell-sidebar">
-   <h2>WIZARD, HERE IS WHAT YOU SEEK</h2>
-  <ul>
-    <li>id: <%= cell.id %></li>
-    <% if (cell.cell_link) { %>
-      <li>cell_link: <%= cell.cell_link %></li>
-      <li>map_link: <a href="/map/<%= cell.map_link %>?cell=<%= cell.cell_link %>"><%= cell.map_link %></a></li>
-    <% } else { %>
-      <li>No linked cell</li>
-    <% } %>
-    <li>location: <%= cell.location %></li>
-    <li>description: <%= cell.description %></li>
-    <li>created_at: <%= cell.created_at %></li>
-    <li>structure: <%= cell.structure_image %></li>
-    <li>location_name: <%= cell.location_name %></li>
-    <% if (!cell.wizard_names || JSON.parse(cell.wizard_names).filter(Boolean).length !== 0) { %>
-      <li>NPWs:
-        <ul>  
-          <% JSON.parse(cell.wizard_names).forEach(function(npw) { %>
-              <li id="item<%= npw %>"><a href="/npws/<%= npw %>"><%= npw %></a></li>
-          <% }); %>
-        </ul>
-      </li>
-    <% } else { %>
-      <li>No NPWs</li>
-    <% } %>
-    <% if (!cell.item_names || JSON.parse(cell.item_names).filter(Boolean).length !== 0) { %>
-    <li>magic items:
-      <ul>  
-        <% JSON.parse(cell.item_names).forEach(function(item_name) { %>
-            <li id="item<%= item_name %>"><a href="/magic-items/<%= item_name %>"><%= item_name %></a></li>
-        <% }); %>
-      </ul>
-    </li>
-    <% } else { %>
-      <li>No Magic Items</li>
-    <% } %>
-    <li>updated_at: <%= cell.updated_at %></li>
-    <li>deleted_at: <%= cell.deleted_at %></li>
-  </ul>
+  <%- include('./cellInformation', {cell: cell}) %>
 
   <button
     data-signal="{ _editCell<%= cell.id %>: false }"
